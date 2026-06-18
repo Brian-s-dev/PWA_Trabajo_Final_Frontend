@@ -1,18 +1,69 @@
-import axiosInstance from '../config/axios.js';
+import ENVIRONMENT from '../config/environment';
 
 export const loginService = async (email, password) => {
-    const response = await axiosInstance.post('/auth/login', { email, password });
-    return response.data;
+    const response = await fetch(`${ENVIRONMENT.URL_API}/auth/login`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, password })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        throw new Error(data.message || 'Error al iniciar sesión');
+    }
+
+    return data;
 };
+
+/**
+ * Servicio para registrar un nuevo usuario en la plataforma
+ * @param {string} nombre 
+ * @param {string} email 
+ * @param {string} password 
+ * @param {string} rol 
+ * @returns {Promise<Object>} Datos de confirmación del nuevo usuario
+ */
 
 export const registerService = async (nombre, email, password, rol) => {
-    const response = await axiosInstance.post('/auth/register', { nombre, email, password, rol });
-    return response.data;
+    const response = await fetch(`${ENVIRONMENT.URL_API}/auth/register`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ nombre, email, password, rol })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        throw new Error(data.message || 'Error al registrar el usuario');
+    }
+
+    return data;
 };
 
+/**
+ * Servicio para procesar el token de verificación de correo electrónico
+ * @param {string} token Token extraído de la URL por la vista
+ * @returns {Promise<Object>} Mensaje de éxito del backend
+ */
+
 export const verifyEmailService = async (token) => {
-    const response = await axiosInstance.get('/auth/verify-email', {
-        params: { verification_token: token }
+    const response = await fetch(`${ENVIRONMENT.URL_API}/auth/verify-email?verification_token=${token}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
     });
-    return response.data;
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        throw new Error(data.message || 'Error al verificar el correo electrónico');
+    }
+
+    return data;
 };
