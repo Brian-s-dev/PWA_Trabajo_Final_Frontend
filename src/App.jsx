@@ -7,11 +7,16 @@ import LoginScreen from './Screens/LoginScreen';
 import RegisterScreen from './Screens/RegisterScreen';
 import VerifyEmailScreen from './Screens/VerifyEmailScreen';
 import DashboardScreen from './Screens/DashboardScreen';
+import ForgotPasswordScreen from './Screens/ForgotPasswordScreen';
+import ResetPasswordScreen from './Screens/ResetPasswordScreen';
+import AdminDashboardScreen from './Screens/AdminDashboardScreen';
+import Navbar from './Components/Navbar';
 
 function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
+        <Navbar />
         <Routes>
           <Route element={<AlreadyAuthMiddleware />}>
             <Route
@@ -26,11 +31,23 @@ function App() {
               path="/verify-email"
               element={<VerifyEmailScreen />}
             />
+            <Route
+              path="/forgot-password"
+              element={<ForgotPasswordScreen />}
+            />
+            <Route
+              path="/reset-password"
+              element={<ResetPasswordScreen />}
+            />
           </Route>
           <Route element={<AuthMiddleware />}>
             <Route
               path="/dashboard"
               element={<DashboardScreen />}
+            />
+            <Route
+              path="/admin"
+              element={<AdminDashboardScreen />}
             />
           </Route>
           <Route

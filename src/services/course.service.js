@@ -9,7 +9,7 @@ const getAuthHeaders = () => {
 };
 
 export const getAllCoursesService = async () => {
-    const response = await fetch(`${ENVIRONMENT.URL_BACKEND}/courses`, {
+    const response = await fetch(`${ENVIRONMENT.URL_API}/courses`, {
         method: 'GET',
         headers: getAuthHeaders()
     });

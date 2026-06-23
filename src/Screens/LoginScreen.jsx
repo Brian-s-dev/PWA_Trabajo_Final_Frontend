@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate, Link } from 'react-router';
 import useForm from '../hooks/useForm';
 import useRequest from '../hooks/useRequest';
 import { loginService } from '../services/auth.service';
@@ -62,6 +62,12 @@ const LoginScreen = () => {
                     {error}
                 </div>}
             </form>
+            
+            <div style={{ marginTop: '20px' }}>
+                <Link to="/forgot-password" style={{ color: '#0056b3', textDecoration: 'none' }}>
+                    ¿Olvidaste tu contraseña?
+                </Link>
+            </div>
         </div>
     );
 };
