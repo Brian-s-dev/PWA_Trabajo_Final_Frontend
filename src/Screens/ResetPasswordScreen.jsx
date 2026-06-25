@@ -1,81 +1,57 @@
-import React, { useState } from 'react';
-import { useSearchParams, useNavigate, Link } from 'react-router';
+import React from 'react';
+import { useSearchParams, useNavigate } from 'react-router';
 import useForm from '../hooks/useForm';
 import useRequest from '../hooks/useRequest';
 import { resetPasswordService } from '../services/auth.service';
-import { ShieldCheck, Layout } from 'lucide-react';
-import './AuthScreens.css';
 
 const ResetPasswordScreen = () => {
     const [searchParams] = useSearchParams();
-    const token = searchParams.get('reset_token');
+    const reset_token = searchParams.get('reset_token');
     const navigate = useNavigate();
 
     const { formValues, handleChange } = useForm({ new_password: '' });
     const { execute, loading, error } = useRequest();
-    const [successMessage, setSuccessMessage] = useState('');
+    const [successMessage, setSuccessMessage] = React.useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!reset_token) return;
+
         try {
-            const response = await execute(resetPasswordService(token, formValues.new_password));
-            setSuccessMessage(response.message);
+            const data = await execute(resetPasswordService(reset_token, formValues.new_password));
+            setSuccessMessage(data.message);
+            setTimeout(() => {
+                navigate('/');
+            }, 3000);
         } catch (err) {
-            console.log("Error al resetear clave");
+            // Consultar por try / catch aca
         }
     };
 
-    if (!token) {
-        return (
-            <div className="auth-container">
-                <div className="auth-card">
-                    <h2 className="auth-title">Enlace no válido</h2>
-                    <p className="auth-subtitle">El enlace de recuperación es inválido o falta el token.</p>
-                    <Link to="/" className="auth-link auth-link-primary">Volver al inicio</Link>
-                </div>
-            </div>
-        );
+    if (!reset_token) {
+        return <div><h1>Error</h1><p>No se proporcionó token de recuperación en la URL.</p></div>;
     }
 
     return (
-        <div className="auth-container">
-            <div className="auth-card">
-                <div className="auth-icon-wrapper">
-                    <Layout size={24} />
-                </div>
-                
-                <h2 className="auth-title">Crear nueva contraseña</h2>
-                <p className="auth-subtitle">Asegúrate de que sea segura</p>
-
-                {successMessage ? (
-                    <div style={{ padding: '20px', textAlign: 'center' }}>
-                        <p style={{ color: 'var(--success-color)', fontWeight: 'bold', marginBottom: '20px' }}>{successMessage}</p>
-                        <button onClick={() => navigate('/')} className="auth-submit-btn">Ir al Login</button>
-                    </div>
-                ) : (
-                    <form onSubmit={handleSubmit} className="auth-form">
-                        <div className="auth-input-group">
-                            <label className="auth-label">Nueva Contraseña</label>
-                            <input
-                                type="password"
-                                name="new_password"
-                                placeholder="Ingresa tu nueva contraseña"
-                                value={formValues.new_password}
-                                onChange={handleChange}
-                                required
-                                className="auth-input"
-                            />
-                        </div>
-
-                        <button type="submit" disabled={loading} className="auth-submit-btn">
-                            <ShieldCheck size={16} />
-                            {loading ? 'Restableciendo...' : 'Guardar Contraseña'}
-                        </button>
-
-                        {error && <div className="auth-error">{error}</div>}
-                    </form>
-                )}
-            </div>
+        <div>
+            <h1>Restablecer Contraseña</h1>
+            {error && <p>{error}</p>}
+            {successMessage && <p>{successMessage}</p>}
+            <form onSubmit={handleSubmit}>
+                <label>
+                    Nueva Contraseña:
+                    <input
+                        type="password"
+                        name="new_password"
+                        value={formValues.new_password}
+                        onChange={handleChange}
+                        required
+                    />
+                </label>
+                <button type="submit" disabled={loading}>
+                    {loading ? 'Cambiando...' : 'Cambiar Contraseña'}
+                </button>
+            </form>
         </div>
     );
 };

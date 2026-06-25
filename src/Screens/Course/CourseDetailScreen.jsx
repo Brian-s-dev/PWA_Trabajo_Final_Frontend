@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router';
-import { getMyCoursesService } from '../services/enrollment.service';
+import { getMyCoursesService } from '../../services/enrollment.service';
 import { BookOpen, CheckCircle, Circle, PlayCircle, ArrowLeft } from 'lucide-react';
 import './CourseDetailScreen.css';
 
@@ -12,8 +12,6 @@ const CourseDetailScreen = () => {
     useEffect(() => {
         const fetchCourseDetail = async () => {
             try {
-                // Como no hay endpoint específico para traer 1 curso + enrollment modules del lado del empleado de forma nativa en tu backend
-                // Reutilizamos el getMyCourses y filtramos.
                 const response = await getMyCoursesService();
                 const enrollment = response.data.find(e => e.curso._id === id);
                 setCourseData(enrollment);
@@ -28,24 +26,19 @@ const CourseDetailScreen = () => {
     }, [id]);
 
     if (loading) {
-        return <div className="screen-container" style={{ textAlign: 'center', color: 'var(--text-muted)' }}>Cargando detalles del curso...</div>;
+        return <div className="screen-container empty-state-muted">Cargando detalles del curso...</div>;
     }
 
     if (!courseData || !courseData.curso) {
-        return <div className="screen-container" style={{ textAlign: 'center', color: 'var(--danger-color)' }}>Curso no encontrado o no asignado.</div>;
+        return <div className="screen-container empty-state-danger">Curso no encontrado o no asignado.</div>;
     }
 
     const { curso } = courseData;
 
-    // TODO: El estado individual de cada módulo debe venir desde EnrollmentModule.
-    // Como el backend actualmente no envía los `enrollmentModules` en `getMyCourses`,
-    // deberíamos ajustar el backend luego para hacer un populate o traerlos aquí.
-    // Por ahora, simularemos que sabemos qué módulos están completados en base a la lógica de UI.
-
     return (
         <div className="screen-container">
-            <div style={{ marginBottom: '16px' }}>
-                <Link to="/dashboard" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', color: 'var(--text-secondary)', textDecoration: 'none', fontWeight: '600' }}>
+            <div className="mb-16">
+                <Link to="/dashboard" className="back-link">
                     <ArrowLeft size={18} /> Volver a Mis Cursos
                 </Link>
             </div>
@@ -56,7 +49,7 @@ const CourseDetailScreen = () => {
 
             <div className="module-list-section">
                 <h2 className="module-list-title">Módulos del Curso</h2>
-                
+
                 {curso.modulos && curso.modulos.length > 0 ? (
                     curso.modulos.map((modulo, index) => {
                         const progress = courseData.moduleProgress?.find(p => p.modulo.toString() === modulo._id.toString());
@@ -77,7 +70,7 @@ const CourseDetailScreen = () => {
                                         </p>
                                     </div>
                                 </div>
-                                <Link 
+                                <Link
                                     to={`/course/${curso._id}/module/${modulo._id}`}
                                     className={`module-action-btn ${isCompleted ? 'secondary' : ''}`}
                                 >
@@ -88,8 +81,8 @@ const CourseDetailScreen = () => {
                         );
                     })
                 ) : (
-                    <div style={{ padding: '24px', backgroundColor: 'var(--bg-secondary)', borderRadius: '12px', border: `1px solid var(--border-color)` }}>
-                        <p style={{ color: 'var(--text-muted)' }}>Este curso aún no tiene módulos publicados.</p>
+                    <div className="empty-modules-container">
+                        <p className="text-muted">Este curso aún no tiene módulos publicados.</p>
                     </div>
                 )}
             </div>

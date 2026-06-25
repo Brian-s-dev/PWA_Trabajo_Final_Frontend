@@ -84,3 +84,37 @@
 .form-actions .btn-secondary:hover {
   background-color: var(--bg-primary);
 }
+
+/* Layout Utilities */
+.flex-center-gap-16 {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.mb-24 {
+    margin-bottom: 24px;
+}
+
+.auth-icon.start-align {
+    justify-content: flex-start;
+    margin: 0 0 16px 0;
+}
+
+.form-title {
+    margin: 0 0 8px 0;
+    font-size: 24px;
+}
+
+.form-subtitle {
+    margin: 0;
+    font-size: 14px;
+}
+
+.no-decoration {
+    text-decoration: none;
+}

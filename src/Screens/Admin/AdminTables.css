@@ -137,3 +137,50 @@
     font-size: 12px;
   }
 }
+
+/* Utility Classes for Manage Screens */
+.role-employee {
+    background-color: var(--bg-tertiary);
+    color: var(--text-secondary);
+}
+
+.flex-center-gap-16 {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.empty-state-padding {
+    padding: 40px;
+    text-align: center;
+    color: var(--text-muted);
+}
+
+.table-user-name {
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.inactive-badge {
+    background-color: #f3f4f6;
+    color: #6b7280;
+    font-size: 10px;
+}
+
+.btn-icon.reactivate-btn {
+    color: #10b981;
+}
+
+.mb-16 {
+    margin-bottom: 16px;
+}
+
+.mb-24 {
+    margin-bottom: 24px;
+}
+
+.text-left {
+    text-align: left;
+}

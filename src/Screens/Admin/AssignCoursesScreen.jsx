@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router';
-import { assignCourseService, unassignCourseService, getEmployeeCoursesService } from '../services/enrollment.service';
-import { getAllCoursesService } from '../services/course.service';
+import { assignCourseService, unassignCourseService, getEmployeeCoursesService } from '../../services/enrollment.service';
+import { getAllCoursesService } from '../../services/course.service';
 import { PlusCircle, MinusCircle, User, ArrowLeft } from 'lucide-react';
 import './AssignCoursesScreen.css';
-import './AdminTables.css'; // Usamos algunas clases compartidas
+import './AdminTables.css';
 
 const AssignCoursesScreen = () => {
     const { userId } = useParams();
-    
+
     const [assignedCourses, setAssignedCourses] = useState([]);
     const [unassignedCourses, setUnassignedCourses] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -16,19 +16,15 @@ const AssignCoursesScreen = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // 1. Obtener todos los cursos del sistema
                 const allCoursesRes = await getAllCoursesService();
                 const allCourses = allCoursesRes.data || [];
 
-                // 2. Obtener los enrollments (activos) de este empleado
                 const enrollmentsRes = await getEmployeeCoursesService(userId);
                 const assignedEnrollments = enrollmentsRes.data || [];
-                
-                // Mapeamos los enrollments para quedarnos solo con el curso, ignorando los null
+
                 const assignedCoursesList = assignedEnrollments.map(e => e.curso).filter(Boolean);
                 const assignedCourseIds = assignedCoursesList.map(c => c._id);
 
-                // 3. Filtrar los disponibles
                 const availableCoursesList = allCourses.filter(c => !assignedCourseIds.includes(c._id));
 
                 setAssignedCourses(assignedCoursesList);
@@ -105,7 +101,6 @@ const AssignCoursesScreen = () => {
                             </div>
                         </div>
 
-                        {/* Columna Cursos Asignados */}
                         <div className="assign-column">
                             <div className="assign-column-header" style={{ backgroundColor: 'var(--accent-light)', color: 'var(--accent-hover)' }}>
                                 Cursos Asignados

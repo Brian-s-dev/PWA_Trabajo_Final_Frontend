@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
-import { createCourseService, updateCourseService, getCourseByIdService } from '../services/course.service';
-import { createModuleService, updateModuleService, deleteModuleService } from '../services/module.service';
-import { Save, Plus, Trash2, Book } from 'lucide-react';
-import AnimatedSaveButton from '../Components/AnimatedSaveButton/AnimatedSaveButton';
+import { createCourseService, updateCourseService, getCourseByIdService } from '../../services/course.service';
+import { createModuleService, updateModuleService, deleteModuleService } from '../../services/module.service';
+import { Save, Plus, Trash2, Book, ListChecks } from 'lucide-react';
+import AnimatedSaveButton from '../../Components/AnimatedSaveButton/AnimatedSaveButton';
 import MDEditor from '@uiw/react-md-editor';
 import './CourseEditorScreen.css';
 
@@ -84,6 +84,7 @@ const CourseEditorScreen = () => {
                 for (const modId of deletedModules) {
                     await deleteModuleService(courseId, modId, true);
                 }
+
                 for (const mod of modules) {
                     if (mod.titulo && mod.contenido) {
                         if (mod._id) {
@@ -118,7 +119,7 @@ const CourseEditorScreen = () => {
     };
 
     if (initialLoading) {
-        return <div className="screen-container" style={{ padding: '40px', textAlign: 'center' }}>Cargando...</div>;
+        return <div className="screen-container empty-state-padding">Cargando...</div>;
     }
 
     return (
@@ -129,7 +130,7 @@ const CourseEditorScreen = () => {
                 </div>
 
                 <div className="editor-body">
-                    {error && <div style={{ color: 'var(--danger-color)', marginBottom: '16px', fontWeight: 'bold' }}>{error}</div>}
+                    {error && <div className="editor-error-msg">{error}</div>}
 
                     <form id="course-form" onSubmit={handleSubmit} className="editor-form">
                         <div className="editor-input-group">
@@ -157,29 +158,28 @@ const CourseEditorScreen = () => {
                             />
                         </div>
 
-                        <div style={{ marginTop: '32px', marginBottom: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <h2 style={{ fontSize: '18px', color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                <Book size={18} /> Módulos del Curso
+                        <div className="modules-header">
+                            <h2 className="modules-title">
+                                <ListChecks size={20} className="icon-primary" /> Módulos del Curso
                             </h2>
-                            <button type="button" onClick={addModule} className="btn-secondary" style={{ padding: '6px 12px', fontSize: '12px' }}>
+                            <button type="button" onClick={addModule} className="btn-secondary btn-small">
                                 <Plus size={14} /> Añadir Módulo
                             </button>
                         </div>
 
                         {modules.map((mod, index) => (
-                            <div key={index} style={{ backgroundColor: 'var(--bg-primary)', padding: '16px', borderRadius: '12px', marginBottom: '16px', border: '1px solid var(--border-color)', position: 'relative' }}>
-
+                            <div key={index} className="editor-module-card">
                                 {modules.length > 1 && (
                                     <button
                                         type="button"
                                         onClick={() => removeModule(index)}
-                                        style={{ position: 'absolute', top: '16px', right: '16px', background: 'none', border: 'none', color: 'var(--danger-color)', cursor: 'pointer', zIndex: 10 }}
+                                        className="module-delete-btn"
                                     >
                                         <Trash2 size={16} />
                                     </button>
                                 )}
 
-                                <div className="editor-input-group" style={{ marginBottom: '12px', paddingRight: '32px' }}>
+                                <div className="editor-input-group mb-12 pr-32">
                                     <label className="editor-label">Título del Módulo {index + 1}</label>
                                     <input
                                         type="text"
@@ -190,7 +190,7 @@ const CourseEditorScreen = () => {
                                         placeholder="Ej: Conceptos Básicos"
                                     />
                                 </div>
-                                <div className="editor-input-group" style={{ marginBottom: '12px' }}>
+                                <div className="editor-input-group mb-12">
                                     <label className="editor-label">Descripción (Opcional)</label>
                                     <input
                                         type="text"
@@ -200,9 +200,9 @@ const CourseEditorScreen = () => {
                                         placeholder="Breve resumen del módulo"
                                     />
                                 </div>
-                                <div className="editor-input-group" style={{ marginBottom: '0' }}>
-                                    <label className="editor-label">Contenido / URL del Material</label>
-                                    <div data-color-mode="dark" style={{ border: '1px solid var(--border-color)', borderRadius: '12px', overflow: 'hidden' }}>
+                                <div className="editor-input-group mb-0">
+                                    <label>Contenido del Módulo (Markdown)</label>
+                                    <div data-color-mode="dark" className="md-editor-wrapper">
                                         <MDEditor
                                             value={mod.contenido || ''}
                                             onChange={(val) => handleModuleChange(index, 'contenido', val || '')}
@@ -213,7 +213,7 @@ const CourseEditorScreen = () => {
                             </div>
                         ))}
 
-                        <div className="editor-footer" style={{ marginTop: '32px' }}>
+                        <div className="editor-footer mt-32">
                             <button type="button" onClick={() => navigate('/admin/courses')} className="btn-secondary">
                                 Cancelar
                             </button>

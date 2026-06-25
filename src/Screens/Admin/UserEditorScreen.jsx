@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router';
-import { createUserService } from '../services/user.service';
+import { createUserService } from '../../services/user.service';
 import { Save, UserPlus, ArrowLeft } from 'lucide-react';
-import AnimatedSaveButton from '../Components/AnimatedSaveButton';
+import AnimatedSaveButton from '../../Components/AnimatedSaveButton/AnimatedSaveButton';
 import './UserEditorScreen.css';
-import './AuthScreens.css';
+import '../Auth/AuthScreens.css';
 
 const UserEditorScreen = () => {
     const navigate = useNavigate();
@@ -43,7 +43,7 @@ const UserEditorScreen = () => {
         <div className="screen-container">
             <div className="admin-panel-container">
                 <div className="admin-panel-header">
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                    <div className="flex-center-gap-16">
                         <Link to="/admin/users" className="btn-icon">
                             <ArrowLeft size={20} />
                         </Link>
@@ -52,12 +52,12 @@ const UserEditorScreen = () => {
                 </div>
 
                 <div className="user-editor-form">
-                    <div className="auth-header" style={{ textAlign: 'left', marginBottom: '24px' }}>
-                        <div className="auth-icon" style={{ justifyContent: 'flex-start', margin: '0 0 16px 0' }}>
-                            <UserPlus size={24} />
+                    <div className="auth-header text-left mb-24">
+                        <div className="auth-icon start-align">
+                            <UserPlus size={28} />
                         </div>
-                        <h2 style={{ margin: '0 0 8px 0', fontSize: '24px' }}>Datos del Empleado</h2>
-                        <p style={{ margin: 0, fontSize: '14px' }}>Ingresa la información para registrar al nuevo colaborador.</p>
+                        <h2 className="form-title">Datos del Empleado</h2>
+                        <p className="form-subtitle">Ingresa la información para registrar al nuevo colaborador.</p>
                     </div>
 
                     {error && <div className="auth-error">{error}</div>}
@@ -109,7 +109,7 @@ const UserEditorScreen = () => {
                         </div>
 
                         <div className="form-actions">
-                            <Link to="/admin/users" className="btn-secondary" style={{ textDecoration: 'none' }}>
+                            <Link to="/admin/users" className="btn-secondary no-decoration">
                                 Cancelar
                             </Link>
                             <AnimatedSaveButton 

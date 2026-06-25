@@ -42,7 +42,6 @@ export const markModuleCompletedService = async (course_id, module_id) => {
     if (!response.ok) throw new Error(data.message || 'Error al marcar progreso');
     return data;
 };
-
 export const unassignCourseService = async (employee_id, course_id) => {
     const response = await fetch(`${ENVIRONMENT.URL_API}/enrollments/${course_id}/employee/${employee_id}`, {
         method: 'DELETE',

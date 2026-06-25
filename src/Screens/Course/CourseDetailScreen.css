@@ -131,3 +131,42 @@
     justify-content: center;
   }
 }
+
+/* Course State Utilities */
+.empty-state-muted {
+    text-align: center;
+    color: var(--text-muted);
+}
+
+.empty-state-danger {
+    text-align: center;
+    color: var(--danger-color);
+}
+
+.padding-40 {
+    padding: 40px;
+}
+
+.mb-16 {
+    margin-bottom: 16px;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.empty-modules-container {
+    padding: 24px;
+    background-color: var(--bg-secondary);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+}
+
+.text-muted {
+    color: var(--text-muted);
+}

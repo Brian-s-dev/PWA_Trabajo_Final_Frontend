@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router';
-import { getAdminStatsService } from '../services/stats.service';
-import { getMyCoursesService } from '../services/enrollment.service';
-import ENVIRONMENT from '../config/environment';
+import { getAdminStatsService } from '../../services/stats.service';
+import { getMyCoursesService } from '../../services/enrollment.service';
+import ENVIRONMENT from '../../config/environment';
 import { Users, BookOpen, Activity, PlayCircle, CheckCircle, PlusCircle, UserPlus, FileText } from 'lucide-react';
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
 import './AdminDashboardScreen.css';
@@ -105,14 +105,14 @@ const AdminDashboardScreen = () => {
                                     </div>
                                 </>
                             ) : (
-                                <p style={{ textAlign: 'center', marginTop: '100px', color: 'var(--text-muted)' }}>Sin datos de inscripciones.</p>
+                                <p className="empty-state-text">Sin datos de inscripciones.</p>
                             )}
                         </div>
                     </div>
 
                     <div className="admin-panel-card">
                         <h3 className="panel-card-title">Cursos Críticos (Tasa de Finalización)</h3>
-                        <div style={{ width: '100%', height: 250, marginTop: '16px' }}>
+                        <div className="flex-container-center gap-20">
                             {stats.criticalCourses?.length > 0 ? (
                                 <ResponsiveContainer>
                                     <BarChart data={stats.criticalCourses} layout="vertical" margin={{ left: 50 }}>
@@ -124,12 +124,13 @@ const AdminDashboardScreen = () => {
                                     </BarChart>
                                 </ResponsiveContainer>
                             ) : (
-                                <p style={{ textAlign: 'center', marginTop: '100px', color: 'var(--text-muted)' }}>Sin cursos registrados.</p>
+                                <p className="empty-state-text">Sin cursos registrados.</p>
                             )}
                         </div>
                     </div>
                 </div>
 
+                {/* Columna Derecha: Acciones y Doble Rol */}
                 <div className="admin-actions-column">
                     <div className="admin-panel-card">
                         <h3 className="panel-card-title">Acciones Rápidas</h3>
@@ -165,6 +166,7 @@ const AdminDashboardScreen = () => {
                 </div>
             </div>
 
+            {/* Actividad Reciente */}
             <div className="admin-recent-activity">
                 <h3 className="panel-card-title">🔔 Últimos Empleados Registrados</h3>
                 <div className="recent-list">

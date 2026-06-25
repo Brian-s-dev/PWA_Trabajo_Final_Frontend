@@ -311,3 +311,28 @@
         grid-column: span 1;
     }
 }
+
+/* Utilidades Layout */
+.flex-container-center {
+    display: flex;
+    align-items: center;
+}
+
+.flex-container-center.gap-20 {
+    gap: 20px;
+}
+
+.flex-header {
+    display: flex;
+    align-items: center;
+}
+
+.flex-header.gap-8 {
+    gap: 8px;
+}
+
+.empty-state-text {
+    text-align: center;
+    margin-top: 100px;
+    color: var(--text-muted);
+}

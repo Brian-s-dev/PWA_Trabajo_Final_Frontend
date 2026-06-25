@@ -4,21 +4,21 @@ import { AuthProvider } from './context/AuthContext';
 import AuthMiddleware from './middlewares/AuthMiddleware';
 import AlreadyAuthMiddleware from './middlewares/AlreadyAuthMiddleware';
 import RoleMiddleware from './middlewares/RoleMiddleware';
-import LoginScreen from './Screens/LoginScreen';
-import RegisterScreen from './Screens/RegisterScreen';
-import VerifyEmailScreen from './Screens/VerifyEmailScreen';
-import ForgotPasswordScreen from './Screens/ForgotPasswordScreen';
-import ResetPasswordScreen from './Screens/ResetPasswordScreen';
-import DashboardScreen from './Screens/DashboardScreen';
-import CourseDetailScreen from './Screens/CourseDetailScreen';
-import ModuleContentScreen from './Screens/ModuleContentScreen';
-import AdminDashboardScreen from './Screens/AdminDashboardScreen';
-import ManageCoursesScreen from './Screens/ManageCoursesScreen';
-import CourseEditorScreen from './Screens/CourseEditorScreen';
-import ManageUsersScreen from './Screens/ManageUsersScreen';
-import UserEditorScreen from './Screens/UserEditorScreen';
-import AssignCoursesScreen from './Screens/AssignCoursesScreen';
-import Navbar from './Components/Navbar';
+import LoginScreen from './Screens/Auth/LoginScreen';
+import RegisterScreen from './Screens/Auth/RegisterScreen';
+import VerifyEmailScreen from './Screens/Auth/VerifyEmailScreen';
+import ForgotPasswordScreen from './Screens/Auth/ForgotPasswordScreen';
+import ResetPasswordScreen from './Screens/Auth/ResetPasswordScreen';
+import DashboardScreen from './Screens/Dashboard/DashboardScreen';
+import CourseDetailScreen from './Screens/Course/CourseDetailScreen';
+import ModuleContentScreen from './Screens/Course/ModuleContentScreen';
+import AdminDashboardScreen from './Screens/Admin/AdminDashboardScreen';
+import ManageCoursesScreen from './Screens/Admin/ManageCoursesScreen';
+import CourseEditorScreen from './Screens/Admin/CourseEditorScreen';
+import ManageUsersScreen from './Screens/Admin/ManageUsersScreen';
+import UserEditorScreen from './Screens/Admin/UserEditorScreen';
+import AssignCoursesScreen from './Screens/Admin/AssignCoursesScreen';
+import Navbar from './Components/Navbar/Navbar';
 import { ThemeProvider } from './context/ThemeContext';
 
 function App() {
@@ -67,9 +67,9 @@ function App() {
           <Route
             path="*"
             element={
-              <div className="screen-container" style={{ textAlign: 'center', padding: '100px 0' }}>
-                <h1 style={{ fontSize: '24px', fontWeight: 'bold' }}>404 - Página no encontrada</h1>
-                <p style={{ color: 'var(--text-muted)' }}>La sección que estás buscando no existe.</p>
+              <div className="screen-container page-404-container">
+                <h1 className="page-404-title">404 - Página no encontrada</h1>
+                <p className="page-404-text">La sección que estás buscando no existe.</p>
               </div>
             }
           />

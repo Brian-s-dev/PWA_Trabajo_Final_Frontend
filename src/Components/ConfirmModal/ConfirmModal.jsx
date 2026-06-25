@@ -3,8 +3,7 @@ import { AlertTriangle, X } from 'lucide-react';
 import './ConfirmModal.css';
 
 const ConfirmModal = ({ isOpen, onClose, onConfirm, title, message, confirmText = "Eliminar" }) => {
-    
-    // Evitar scroll del body cuando el modal está abierto
+
     useEffect(() => {
         if (isOpen) {
             document.body.style.overflow = 'hidden';
@@ -24,14 +23,14 @@ const ConfirmModal = ({ isOpen, onClose, onConfirm, title, message, confirmText 
                 <button className="confirm-modal-close" onClick={onClose}>
                     <X size={20} />
                 </button>
-                
+
                 <div className="confirm-modal-icon">
                     <AlertTriangle size={32} />
                 </div>
-                
+
                 <h3 className="confirm-modal-title">{title}</h3>
                 <p className="confirm-modal-message">{message}</p>
-                
+
                 <div className="confirm-modal-actions">
                     <button className="btn-secondary" onClick={onClose}>
                         Cancelar

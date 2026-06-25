@@ -154,3 +154,26 @@
     grid-template-columns: 1fr; /* 1 columna en movil */
   }
 }
+
+/* Empty State Utilities */
+.empty-state-padding {
+    text-align: center;
+    padding: 40px;
+    color: var(--text-muted);
+}
+
+.empty-state-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.empty-state-text-muted {
+    color: var(--text-muted);
+}
+
+.icon-inline-ml4 {
+    display: inline;
+    margin-left: 4px;
+}

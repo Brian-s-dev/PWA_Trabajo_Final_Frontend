@@ -9,7 +9,6 @@ const RoleMiddleware = ({ allowedRoles }) => {
     }
 
     if (!allowedRoles.includes(user.rol)) {
-        // Redirige al dashboard del empleado si no tiene permisos
         return <Navigate to="/dashboard" replace />;
     }
 

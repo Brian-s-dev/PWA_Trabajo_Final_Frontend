@@ -21,7 +21,6 @@
     margin-right: 4px;
 }
 
-/* Efecto de barra de progreso que se llena */
 .animated-save-btn.saving {
     background-color: var(--bg-tertiary) !important;
     color: var(--text-primary) !important;
@@ -40,14 +39,21 @@
 }
 
 @keyframes fillProgress {
-    0% { width: 0%; }
-    50% { width: 70%; }
-    100% { width: 95%; } /* Se frena hasta que cambie a success */
+    0% {
+        width: 0%;
+    }
+
+    50% {
+        width: 70%;
+    }
+
+    100% {
+        width: 95%;
+    }
 }
 
-/* Efecto al completarse exitosamente */
 .animated-save-btn.success {
-    background-color: #10b981 !important; /* Verde success */
+    background-color: #10b981 !important;
     color: white !important;
     border-color: #10b981 !important;
 }
@@ -57,6 +63,11 @@
 }
 
 @keyframes popIn {
-    0% { transform: scale(0); }
-    100% { transform: scale(1); }
+    0% {
+        transform: scale(0);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }

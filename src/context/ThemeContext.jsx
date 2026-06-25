@@ -12,7 +12,7 @@ export const ThemeProvider = ({ children }) => {
 
     useEffect(() => {
         localStorage.setItem('app-theme', theme);
-        document.body.className = theme; // Set class on body for global CSS targeting
+        document.body.className = theme;
     }, [theme]);
 
     const toggleTheme = () => {

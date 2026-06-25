@@ -233,6 +233,7 @@
   .desktop-only {
     display: none !important;
   }
+
   .navbar-menu-toggle {
     display: block;
   }
@@ -259,7 +260,7 @@
   }
 
   .navbar-nav.mobile-open {
-    max-height: 400px; /* Suficiente espacio para el menu */
+    max-height: 400px;
     padding: 16px 24px;
   }
 
@@ -288,7 +289,8 @@
     cursor: pointer;
   }
 
-  .mobile-theme-btn, .mobile-logout-btn {
+  .mobile-theme-btn,
+  .mobile-logout-btn {
     background: none;
     border: none;
     cursor: pointer;
@@ -307,15 +309,63 @@
   }
 }
 
+
+
+/* Avatar Classes */
+.navbar-avatar-image {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.navbar-avatar.large,
+.navbar-avatar-image.large {
+  width: 40px;
+  height: 40px;
+}
+
+/* Progress Widget Classes */
+.widget-progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.widget-progress-title {
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 140px;
+}
+
+.widget-progress-percentage {
+  font-size: 11px;
+  font-weight: bold;
+  margin-left: 6px;
+}
+
+/* User Info Clickable */
+.navbar-user-info.clickable {
+  cursor: pointer;
+}
+
 @media (max-width: 480px) {
   .navbar-container {
     padding: 0 16px;
   }
-  
+
+  .navbar-logo-icon {
+    display: none;
+  }
+
   .navbar-subtitle {
     display: none;
   }
-  
+
   .navbar-title {
     font-size: 14px;
   }

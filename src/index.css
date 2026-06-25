@@ -116,3 +116,18 @@ input:focus, textarea:focus, select:focus {
     padding: 12px;
   }
 }
+
+/* 404 Page Utilities */
+.page-404-container {
+  text-align: center;
+  padding: 100px 0;
+}
+
+.page-404-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.page-404-text {
+  color: var(--text-muted);
+}

@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useAuth } from '../context/AuthContext';
-import { getMyCoursesService } from '../services/enrollment.service';
-import { updateMeService, uploadAvatarService } from '../services/auth.service';
-import ENVIRONMENT from '../config/environment';
-import { ENROLLMENT_STATUS } from '../constants/enrollmentStatus';
-import AnimatedSaveButton from './AnimatedSaveButton';
+import { useAuth } from '../../context/AuthContext';
+import { getMyCoursesService } from '../../services/enrollment.service';
+import { updateMeService, uploadAvatarService } from '../../services/auth.service';
+import ENVIRONMENT from '../../config/environment';
+import { ENROLLMENT_STATUS } from '../../constants/enrollmentStatus';
+import AnimatedSaveButton from "../AnimatedSaveButton/AnimatedSaveButton";
 import { X, Camera, Edit2, LogOut, Save, ShieldAlert } from 'lucide-react';
 import './ProfileSidebar.css';
 
@@ -12,19 +12,18 @@ const ProfileSidebar = ({ isOpen, onClose }) => {
     const { user, logout, updateUser } = useAuth();
     const [isEditing, setIsEditing] = useState(false);
     const [stats, setStats] = useState({ assigned: 0, completed: 0, progress: 0 });
-    
+
     const [formData, setFormData] = useState({ nombre: '', newPassword: '', confirmPassword: '' });
     const [loadingProfile, setLoadingProfile] = useState(false);
     const [successProfile, setSuccessProfile] = useState(false);
-    
+
     const [loadingPassword, setLoadingPassword] = useState(false);
     const [successPassword, setSuccessPassword] = useState(false);
-    
+
     const [error, setError] = useState(null);
     const [uploadingAvatar, setUploadingAvatar] = useState(false);
     const fileInputRef = useRef(null);
 
-    // Reiniciar form al abrir edición
     useEffect(() => {
         if (user) {
             setFormData({ nombre: user.nombre, newPassword: '', confirmPassword: '' });
@@ -41,7 +40,7 @@ const ProfileSidebar = ({ isOpen, onClose }) => {
                     const assigned = enrollments.length;
                     const completed = enrollments.filter(e => e.estado === ENROLLMENT_STATUS.COMPLETADO).length;
                     const progress = assigned === 0 ? 0 : Math.round((completed / assigned) * 100);
-                    
+
                     setStats({ assigned, completed, progress });
                 } catch (error) {
                     console.error("Error fetching stats:", error);
@@ -64,14 +63,14 @@ const ProfileSidebar = ({ isOpen, onClose }) => {
         try {
             setLoadingProfile(true);
             const res = await updateMeService({ nombre: formData.nombre });
-            updateUser({ nombre: res.data.nombre }); // Actualiza el context local
-            
+            updateUser({ nombre: res.data.nombre });
+
             setSuccessProfile(true);
             setTimeout(() => {
                 setSuccessProfile(false);
-                setIsEditing(false); // Vuelve al perfil común
+                setIsEditing(false);
             }, 1000);
-            
+
         } catch (err) {
             setError(err.message);
             setLoadingProfile(false);
@@ -92,14 +91,14 @@ const ProfileSidebar = ({ isOpen, onClose }) => {
         try {
             setLoadingPassword(true);
             await updateMeService({ password: formData.newPassword });
-            
+
             setSuccessPassword(true);
             setTimeout(() => {
                 setSuccessPassword(false);
                 setFormData({ ...formData, newPassword: '', confirmPassword: '' });
-                setIsEditing(false); // Vuelve al perfil común
+                setIsEditing(false);
             }, 1000);
-            
+
         } catch (err) {
             setError(err.message);
             setLoadingPassword(false);
@@ -137,7 +136,7 @@ const ProfileSidebar = ({ isOpen, onClose }) => {
                                 <X size={20} />
                             </button>
                             <h3>Editar Perfil</h3>
-                            <AnimatedSaveButton 
+                            <AnimatedSaveButton
                                 isSaving={loadingProfile}
                                 isSuccess={successProfile}
                                 onClick={handleUpdateProfile}
@@ -168,9 +167,9 @@ const ProfileSidebar = ({ isOpen, onClose }) => {
                                     {uploadingAvatar ? (
                                         <span style={{ fontSize: '14px' }}>⏳</span>
                                     ) : user.avatar ? (
-                                        <img 
-                                            src={`${ENVIRONMENT.URL_API.replace('/api', '')}${user.avatar}`} 
-                                            alt="Avatar" 
+                                        <img
+                                            src={`${ENVIRONMENT.URL_API.replace('/api', '')}${user.avatar}`}
+                                            alt="Avatar"
                                             style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                                         />
                                     ) : (
@@ -181,15 +180,15 @@ const ProfileSidebar = ({ isOpen, onClose }) => {
                                     </div>
                                 </div>
                                 <div className="avatar-actions">
-                                    <input 
-                                        type="file" 
-                                        accept="image/*" 
-                                        hidden 
-                                        ref={fileInputRef} 
-                                        onChange={handleFileChange} 
+                                    <input
+                                        type="file"
+                                        accept="image/*"
+                                        hidden
+                                        ref={fileInputRef}
+                                        onChange={handleFileChange}
                                     />
-                                    <button 
-                                        className="btn-secondary small" 
+                                    <button
+                                        className="btn-secondary small"
                                         onClick={handleAvatarClick}
                                         disabled={uploadingAvatar}
                                     >
@@ -200,21 +199,21 @@ const ProfileSidebar = ({ isOpen, onClose }) => {
 
                             <hr className="divider" />
 
-                            {error && <div style={{color: 'var(--danger-color)', fontSize: '13px', marginBottom: '16px', padding: '8px', backgroundColor: 'var(--danger-light)', borderRadius: '6px'}}>{error}</div>}
+                            {error && <div style={{ color: 'var(--danger-color)', fontSize: '13px', marginBottom: '16px', padding: '8px', backgroundColor: 'var(--danger-light)', borderRadius: '6px' }}>{error}</div>}
 
                             <div className="form-group">
                                 <h3>📝 Datos Personales</h3>
                                 <label>Nombre Completo</label>
-                                <input 
-                                    type="text" 
-                                    value={formData.nombre} 
-                                    onChange={(e) => setFormData({...formData, nombre: e.target.value})}
-                                    className="input-styled" 
+                                <input
+                                    type="text"
+                                    value={formData.nombre}
+                                    onChange={(e) => setFormData({ ...formData, nombre: e.target.value })}
+                                    className="input-styled"
                                 />
-                                
+
                                 <label style={{ marginTop: '12px' }}>Email (No editable)</label>
                                 <input type="text" value={user.email} disabled className="input-styled disabled" />
-                                
+
                                 <label style={{ marginTop: '12px' }}>Fecha de Alta (No editable)</label>
                                 <input type="text" value={new Date(user.createdAt || Date.now()).toLocaleDateString()} disabled className="input-styled disabled" />
 
@@ -234,27 +233,27 @@ const ProfileSidebar = ({ isOpen, onClose }) => {
 
                             <div className="form-group">
                                 <h3>🔒 Seguridad y Contraseña</h3>
-                                
+
                                 <label>Nueva Contraseña</label>
-                                <input 
-                                    type="password" 
-                                    placeholder="••••••••" 
-                                    className="input-styled" 
+                                <input
+                                    type="password"
+                                    placeholder="••••••••"
+                                    className="input-styled"
                                     value={formData.newPassword}
-                                    onChange={(e) => setFormData({...formData, newPassword: e.target.value})}
+                                    onChange={(e) => setFormData({ ...formData, newPassword: e.target.value })}
                                 />
-                                
+
                                 <label style={{ marginTop: '12px' }}>Confirmar Nueva Contraseña</label>
-                                <input 
-                                    type="password" 
-                                    placeholder="••••••••" 
-                                    className="input-styled" 
+                                <input
+                                    type="password"
+                                    placeholder="••••••••"
+                                    className="input-styled"
                                     value={formData.confirmPassword}
-                                    onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}
+                                    onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
                                 />
 
                                 <div style={{ marginTop: '24px' }}>
-                                    <AnimatedSaveButton 
+                                    <AnimatedSaveButton
                                         isSaving={loadingPassword}
                                         isSuccess={successPassword}
                                         onClick={handleChangePassword}
@@ -270,9 +269,9 @@ const ProfileSidebar = ({ isOpen, onClose }) => {
                             <div className="profile-hero">
                                 <div className="avatar-huge" style={{ overflow: 'hidden' }}>
                                     {user.avatar ? (
-                                        <img 
-                                            src={`${ENVIRONMENT.URL_API.replace('/api', '')}${user.avatar}`} 
-                                            alt="Avatar" 
+                                        <img
+                                            src={`${ENVIRONMENT.URL_API.replace('/api', '')}${user.avatar}`}
+                                            alt="Avatar"
                                             style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                                         />
                                     ) : (
@@ -290,10 +289,10 @@ const ProfileSidebar = ({ isOpen, onClose }) => {
                                 <h3 style={{ fontSize: '14px', marginBottom: '12px' }}>📝 Datos Personales</h3>
                                 <label>Nombre Completo</label>
                                 <input type="text" value={user.nombre} disabled className="input-styled disabled" />
-                                
+
                                 <label style={{ marginTop: '12px' }}>Email</label>
                                 <input type="text" value={user.email} disabled className="input-styled disabled" />
-                                
+
                                 <label style={{ marginTop: '12px' }}>Fecha de Alta</label>
                                 <input type="text" value={new Date(user.createdAt || Date.now()).toLocaleDateString()} disabled className="input-styled disabled" />
                             </div>
@@ -303,7 +302,7 @@ const ProfileSidebar = ({ isOpen, onClose }) => {
                             {user.rol === 'EMPLOYEE' ? (
                                 <div className="profile-stats">
                                     <h3>📊 Mi Progreso de Onboarding</h3>
-                                    
+
                                     <div className="progress-container">
                                         <div className="progress-bar-bg">
                                             <div className="progress-bar-fill" style={{ width: `${stats.progress}%` }}></div>
@@ -318,9 +317,9 @@ const ProfileSidebar = ({ isOpen, onClose }) => {
                                 </div>
                             ) : (
                                 <div className="profile-stats admin">
-                                    <h3><ShieldAlert size={18} style={{marginRight: '8px', verticalAlign: 'middle'}}/> Nivel de Acceso</h3>
+                                    <h3><ShieldAlert size={18} style={{ marginRight: '8px', verticalAlign: 'middle' }} /> Nivel de Acceso</h3>
                                     <p className="role-badge">{user.rol}</p>
-                                    <p className="text-muted" style={{marginTop: '12px', fontSize: '13px'}}>
+                                    <p className="text-muted" style={{ marginTop: '12px', fontSize: '13px' }}>
                                         Tienes privilegios administrativos para gestionar usuarios y cursos en la plataforma.
                                     </p>
                                 </div>

@@ -137,3 +137,39 @@
     font-size: 18px;
   }
 }
+
+/* Auth Message Utilities */
+.auth-msg-container {
+    padding: 20px;
+    text-align: center;
+}
+
+.auth-msg-container-simple {
+    padding: 20px;
+}
+
+.auth-success-msg {
+    color: var(--success-color);
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.auth-danger-msg {
+    color: var(--danger-color);
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.auth-success-icon {
+    color: var(--success-color);
+    margin: 0 auto 16px auto;
+}
+
+.auth-danger-icon {
+    color: var(--danger-color);
+    margin: 0 auto 16px auto;
+}
+
+.no-decoration {
+    text-decoration: none;
+}
