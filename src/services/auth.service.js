@@ -67,3 +67,65 @@ export const verifyEmailService = async (token) => {
 
     return data;
 };
+
+export const forgotPasswordService = async (email) => {
+    const response = await fetch(`${ENVIRONMENT.URL_API}/auth/forgot-password`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email })
+    });
+
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.message || 'Error al solicitar recuperación');
+    return data;
+};
+
+export const resetPasswordService = async (reset_token, new_password) => {
+    const response = await fetch(`${ENVIRONMENT.URL_API}/auth/reset-password`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ reset_token, new_password })
+    });
+
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.message || 'Error al restablecer contraseña');
+    return data;
+};
+
+export const updateMeService = async (updateData) => {
+    const token = localStorage.getItem('access_token');
+    const response = await fetch(`${ENVIRONMENT.URL_API}/auth/me`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(updateData)
+    });
+
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.message || 'Error al actualizar perfil');
+    return data;
+};
+
+export const uploadAvatarService = async (file) => {
+    const token = localStorage.getItem('access_token');
+    const formData = new FormData();
+    formData.append('avatar', file);
+
+    const response = await fetch(`${ENVIRONMENT.URL_API}/auth/me/avatar`, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        },
+        body: formData
+    });
+
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.message || 'Error al subir la imagen');
+    return data;
+};

@@ -1,0 +1,109 @@
+.assign-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.assign-column {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  display: flex;
+  flex-direction: column;
+}
+
+.assign-column-header {
+  padding: 20px;
+  background-color: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border-color);
+  font-weight: 800;
+  color: var(--text-primary);
+  text-align: center;
+}
+
+.assign-list {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex-grow: 1;
+  min-height: 200px;
+}
+
+.assign-item {
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: border-color 0.2s;
+}
+
+.assign-item:hover {
+  border-color: var(--accent-light);
+}
+
+.assign-item-title {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+.btn-assign {
+  padding: 6px 12px;
+  background-color: var(--success-light);
+  color: var(--success-hover);
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 12px;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.btn-assign:hover {
+  background-color: var(--success-color);
+  color: white;
+}
+
+.btn-unassign {
+  padding: 6px 12px;
+  background-color: var(--danger-light);
+  color: var(--danger-hover);
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 12px;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.btn-unassign:hover {
+  background-color: var(--danger-color);
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .assign-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .assign-item {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  
+  .assign-item button {
+    width: 100%;
+    justify-content: center;
+  }
+}

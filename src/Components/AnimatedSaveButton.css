@@ -1,0 +1,62 @@
+.animated-save-btn {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    min-width: 140px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.animated-save-btn .btn-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.animated-save-btn .btn-icon-left {
+    margin-right: 4px;
+}
+
+/* Efecto de barra de progreso que se llena */
+.animated-save-btn.saving {
+    background-color: var(--bg-tertiary) !important;
+    color: var(--text-primary) !important;
+    cursor: wait;
+}
+
+.progress-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0%;
+    background-color: var(--accent-color);
+    z-index: 1;
+    animation: fillProgress 1.5s ease-in-out forwards;
+}
+
+@keyframes fillProgress {
+    0% { width: 0%; }
+    50% { width: 70%; }
+    100% { width: 95%; } /* Se frena hasta que cambie a success */
+}
+
+/* Efecto al completarse exitosamente */
+.animated-save-btn.success {
+    background-color: #10b981 !important; /* Verde success */
+    color: white !important;
+    border-color: #10b981 !important;
+}
+
+.check-icon {
+    animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes popIn {
+    0% { transform: scale(0); }
+    100% { transform: scale(1); }
+}
