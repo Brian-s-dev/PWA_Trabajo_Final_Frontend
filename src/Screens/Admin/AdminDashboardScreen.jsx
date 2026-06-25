@@ -114,7 +114,7 @@ const AdminDashboardScreen = () => {
                         <h3 className="panel-card-title">Cursos Críticos (Tasa de Finalización)</h3>
                         <div className="flex-container-center gap-20">
                             {stats.criticalCourses?.length > 0 ? (
-                                <ResponsiveContainer>
+                                <ResponsiveContainer width="100%" height={250}>
                                     <BarChart data={stats.criticalCourses} layout="vertical" margin={{ left: 50 }}>
                                         <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="var(--border-color)" />
                                         <XAxis type="number" domain={[0, 100]} unit="%" tick={{ fill: 'var(--text-muted)' }} />
