@@ -168,7 +168,7 @@ const ProfileSidebar = ({ isOpen, onClose }) => {
                                         <span style={{ fontSize: '14px' }}>⏳</span>
                                     ) : user.avatar ? (
                                         <img
-                                            src={`${ENVIRONMENT.URL_API.replace('/api', '')}${user.avatar}`}
+                                            src={user.avatar.startsWith('http') ? user.avatar : `${ENVIRONMENT.URL_API.replace('/api', '')}${user.avatar}`}
                                             alt="Avatar"
                                             style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                                         />
@@ -270,7 +270,7 @@ const ProfileSidebar = ({ isOpen, onClose }) => {
                                 <div className="avatar-huge" style={{ overflow: 'hidden' }}>
                                     {user.avatar ? (
                                         <img
-                                            src={`${ENVIRONMENT.URL_API.replace('/api', '')}${user.avatar}`}
+                                            src={user.avatar.startsWith('http') ? user.avatar : `${ENVIRONMENT.URL_API.replace('/api', '')}${user.avatar}`}
                                             alt="Avatar"
                                             style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                                         />

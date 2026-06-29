@@ -125,7 +125,7 @@ const Navbar = () => {
                         <div className="navbar-user-info-mobile" onClick={() => { setIsSidebarOpen(true); closeMenu(); }}>
                             {user.avatar ? (
                                 <img
-                                    src={`${ENVIRONMENT.URL_API.replace('/api', '')}${user.avatar}`}
+                                    src={user.avatar.startsWith('http') ? user.avatar : `${ENVIRONMENT.URL_API.replace('/api', '')}${user.avatar}`}
                                     alt="Avatar"
                                     className="navbar-avatar-image large"
                                 />
@@ -188,7 +188,7 @@ const Navbar = () => {
                     <div className="navbar-user-info clickable" onClick={() => setIsSidebarOpen(true)}>
                         {user.avatar ? (
                             <img
-                                src={`${ENVIRONMENT.URL_API.replace('/api', '')}${user.avatar}`}
+                                src={user.avatar.startsWith('http') ? user.avatar : `${ENVIRONMENT.URL_API.replace('/api', '')}${user.avatar}`}
                                 alt="Avatar"
                                 className="navbar-avatar-image large"
                             />

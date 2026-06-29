@@ -173,7 +173,7 @@ const AdminDashboardScreen = () => {
                     {stats.recentEmployees?.map(emp => (
                         <div key={emp._id} className="recent-item">
                             <div className="recent-item-avatar">
-                                {emp.avatar ? <img src={`${ENVIRONMENT.URL_API.replace('/api', '')}${emp.avatar}`} alt="Avatar" /> : emp.nombre.charAt(0).toUpperCase()}
+                                {emp.avatar ? <img src={emp.avatar.startsWith('http') ? emp.avatar : `${ENVIRONMENT.URL_API.replace('/api', '')}${emp.avatar}`} alt="Avatar" /> : emp.nombre.charAt(0).toUpperCase()}
                             </div>
                             <div className="recent-item-info">
                                 <h4>{emp.nombre}</h4>
