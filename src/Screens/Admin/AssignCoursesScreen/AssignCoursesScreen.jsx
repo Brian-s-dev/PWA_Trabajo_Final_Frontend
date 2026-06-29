@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router';
-import { assignCourseService, unassignCourseService, getEmployeeCoursesService } from '../../services/enrollment.service';
-import { getAllCoursesService } from '../../services/course.service';
+import { assignCourseService, unassignCourseService, getEmployeeCoursesService } from '../../../services/enrollment.service';
+import { getAllCoursesService } from '../../../services/course.service';
 import { PlusCircle, MinusCircle, User, ArrowLeft } from 'lucide-react';
 import './AssignCoursesScreen.css';
-import './AdminTables.css';
+import '../AdminTables/AdminTables.css';
 
 const AssignCoursesScreen = () => {
     const { userId } = useParams();
@@ -61,14 +61,14 @@ const AssignCoursesScreen = () => {
 
     return (
         <div className="screen-container">
-            <div className="admin-panel-container" style={{ marginBottom: '24px' }}>
+            <div className="admin-panel-container ac-panel-container">
                 <div className="admin-panel-header">
                     <div>
-                        <h1 className="admin-panel-title" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <h1 className="admin-panel-title ac-panel-title">
                             <User /> Asignación de Cursos
                         </h1>
-                        <p style={{ color: 'var(--text-muted)', fontSize: '13px', marginTop: '4px' }}>
-                            Gestionando cursos para el usuario: <strong style={{ color: 'var(--text-primary)' }}>ID {userId || 'Desconocido'}</strong>
+                        <p className="ac-panel-subtitle">
+                            Gestionando cursos para el usuario: <strong className="ac-user-id">ID {userId || 'Desconocido'}</strong>
                         </p>
                     </div>
                     <Link to="/admin/users" className="btn-secondary">
@@ -79,7 +79,7 @@ const AssignCoursesScreen = () => {
 
             <div className="assign-container">
                 {loading ? (
-                    <div style={{ gridColumn: '1 / -1', padding: '40px', textAlign: 'center', color: 'var(--text-muted)' }}>Cargando datos...</div>
+                    <div className="ac-loading-state">Cargando datos...</div>
                 ) : (
                     <>
                         {/* Columna Cursos Disponibles */}
@@ -87,7 +87,7 @@ const AssignCoursesScreen = () => {
                             <div className="assign-column-header">Cursos Disponibles</div>
                             <div className="assign-list">
                                 {unassignedCourses.length === 0 ? (
-                                    <p style={{ textAlign: 'center', color: 'var(--text-muted)', margin: 'auto' }}>No hay más cursos disponibles.</p>
+                                    <p className="ac-empty-list">No hay más cursos disponibles.</p>
                                 ) : (
                                     unassignedCourses.map(course => (
                                         <div key={course._id} className="assign-item">
@@ -102,12 +102,12 @@ const AssignCoursesScreen = () => {
                         </div>
 
                         <div className="assign-column">
-                            <div className="assign-column-header" style={{ backgroundColor: 'var(--accent-light)', color: 'var(--accent-hover)' }}>
+                            <div className="assign-column-header ac-header-assigned">
                                 Cursos Asignados
                             </div>
                             <div className="assign-list">
                                 {assignedCourses.length === 0 ? (
-                                    <p style={{ textAlign: 'center', color: 'var(--text-muted)', margin: 'auto' }}>El usuario no tiene cursos asignados.</p>
+                                    <p className="ac-empty-list">El usuario no tiene cursos asignados.</p>
                                 ) : (
                                     assignedCourses.map(course => (
                                         <div key={course._id} className="assign-item">

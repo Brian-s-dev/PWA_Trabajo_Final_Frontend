@@ -19,11 +19,7 @@
 }
 
 .auth-icon-wrapper {
-  width: 48px;
-  height: 48px;
-  background-color: var(--accent-light);
   color: var(--accent-color);
-  border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -148,28 +144,28 @@
     padding: 20px;
 }
 
-.auth-success-msg {
+.auth-success-message {
     color: var(--success-color);
     font-weight: bold;
     margin-bottom: 20px;
 }
 
-.auth-danger-msg {
+.auth-error-message {
     color: var(--danger-color);
     font-weight: bold;
     margin-bottom: 20px;
 }
 
-.auth-success-icon {
+.auth-status-icon-success {
     color: var(--success-color);
     margin: 0 auto 16px auto;
 }
 
-.auth-danger-icon {
+.auth-status-icon-error {
     color: var(--danger-color);
     margin: 0 auto 16px auto;
 }
 
-.no-decoration {
+.auth-success-link {
     text-decoration: none;
 }

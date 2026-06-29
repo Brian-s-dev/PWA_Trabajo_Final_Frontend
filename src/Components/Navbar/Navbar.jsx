@@ -8,7 +8,8 @@ import { getAllCoursesService } from '../../services/course.service';
 import { getAllUsersService } from '../../services/user.service';
 import { ENROLLMENT_STATUS } from '../../constants/enrollmentStatus';
 import ProfileSidebar from '../ProfileSidebar/ProfileSidebar';
-import { Layout, LogOut, Sun, Moon, GraduationCap, ShieldAlert, User as UserIcon, Menu, X, PlayCircle, CheckCircle } from 'lucide-react';
+import { LogOut, Sun, Moon, GraduationCap, ShieldAlert, User as UserIcon, Menu, X, PlayCircle, CheckCircle } from 'lucide-react';
+import LogoIcon from '../LogoIcon/LogoIcon';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -23,7 +24,7 @@ const Navbar = () => {
     const handleLogout = () => {
         logout();
         closeMenu();
-        navigate('/');
+        navigate('/login');
     };
 
     const [activeCourse, setActiveCourse] = useState(null);
@@ -97,7 +98,7 @@ const Navbar = () => {
                     closeMenu();
                 }}>
                     <div className="navbar-logo-icon">
-                        <Layout size={20} />
+                        <LogoIcon size={32} />
                     </div>
                     <div>
                         <h1 className="navbar-title">Portal Capacitación</h1>

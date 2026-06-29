@@ -1,0 +1,99 @@
+.module-content-container {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  margin-bottom: 24px;
+}
+
+.module-content-header {
+  padding: 24px 32px;
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--bg-tertiary);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.module-content-title {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.module-content-body {
+  padding: 32px;
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  min-height: 300px;
+}
+
+.module-content-footer {
+  padding: 24px 32px;
+  border-top: 1px solid var(--border-color);
+  background-color: var(--bg-primary);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-button {
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 14px;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-button.back {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.nav-button.back:hover {
+  background-color: var(--border-color);
+}
+
+.nav-button.complete {
+  background-color: var(--accent-color);
+  color: white;
+}
+
+.nav-button.complete:hover {
+  background-color: var(--accent-hover);
+}
+
+.nav-button.success {
+  background-color: var(--success-light);
+  color: var(--success-color);
+  cursor: default;
+}
+
+@media (max-width: 768px) {
+  .module-content-header,
+  .module-content-body,
+  .module-content-footer {
+    padding: 20px 16px;
+  }
+  
+  .module-content-title {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .module-content-footer {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .nav-button {
+    width: 100%;
+    justify-content: center;
+  }
+}

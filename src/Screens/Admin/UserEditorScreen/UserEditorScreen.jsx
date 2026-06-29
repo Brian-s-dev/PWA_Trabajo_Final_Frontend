@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router';
-import { createUserService } from '../../services/user.service';
+import { createUserService } from '../../../services/user.service';
 import { Save, UserPlus, ArrowLeft } from 'lucide-react';
-import AnimatedSaveButton from '../../Components/AnimatedSaveButton/AnimatedSaveButton';
+import AnimatedSaveButton from '../../../Components/AnimatedSaveButton/AnimatedSaveButton';
 import './UserEditorScreen.css';
-import '../Auth/AuthScreens.css';
+import "../../Auth/AuthScreens.css";
 
 const UserEditorScreen = () => {
     const navigate = useNavigate();
@@ -112,7 +112,7 @@ const UserEditorScreen = () => {
                             <Link to="/admin/users" className="btn-secondary no-decoration">
                                 Cancelar
                             </Link>
-                            <AnimatedSaveButton 
+                            <AnimatedSaveButton
                                 type="submit"
                                 isSaving={loading}
                                 isSuccess={success}

@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router';
-import { useAuth } from '../../context/AuthContext';
-import { getAllCoursesService, deleteCourseService, updateCourseService } from '../../services/course.service';
-import { deleteModuleService } from '../../services/module.service';
-import ConfirmModal from '../../Components/ConfirmModal/ConfirmModal';
-import { Plus, Edit, Trash2, ArrowLeft, RefreshCw, ChevronDown, ChevronRight } from 'lucide-react';
-import './AdminTables.css';
+import { useAuth } from '../../../context/AuthContext';
+import { getAllCoursesService, deleteCourseService, updateCourseService } from '../../../services/course.service';
+import { deleteModuleService } from '../../../services/module.service';
+import { generateCourseFromPdfService } from '../../../services/ai.service';
+import ConfirmModal from '../../../Components/ConfirmModal/ConfirmModal';
+import AiCourseModal from '../../../Components/AiCourseModal/AiCourseModal';
+import { Plus, Edit, Trash2, ArrowLeft, RefreshCw, ChevronDown, ChevronRight, Sparkles } from 'lucide-react';
+import '../AdminTables/AdminTables.css';
+import './ManageCoursesScreen.css';
 
 const ManageCoursesScreen = () => {
     const { user } = useAuth();
@@ -22,19 +25,21 @@ const ManageCoursesScreen = () => {
     const [isModuleConfirmOpen, setIsModuleConfirmOpen] = useState(false);
     const [moduleToDelete, setModuleToDelete] = useState(null);
 
-    useEffect(() => {
-        const fetchCourses = async () => {
-            try {
-                const response = await getAllCoursesService(true);
-                setCourses(response.data || []);
-            } catch (error) {
-                console.error(error);
-                alert('Error al cargar cursos: ' + error.message);
-            } finally {
-                setLoading(false);
-            }
-        };
+    const [isAiModalOpen, setIsAiModalOpen] = useState(false);
 
+    const fetchCourses = async () => {
+        try {
+            const response = await getAllCoursesService(true);
+            setCourses(response.data || []);
+        } catch (error) {
+            console.error(error);
+            alert('Error al cargar cursos: ' + error.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
         fetchCourses();
     }, []);
 
@@ -95,20 +100,25 @@ const ManageCoursesScreen = () => {
         <div className="screen-container">
             <div className="admin-panel-container">
                 <div className="admin-panel-header">
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                    <div className="mc-header-left">
                         <Link to="/admin" className="btn-icon" title="Volver al Panel">
                             <ArrowLeft size={20} />
                         </Link>
                         <h1 className="admin-panel-title">Gestión de Cursos</h1>
                     </div>
-                    <Link to="/admin/courses/new" className="btn-primary">
-                        <Plus size={16} /> Crear Curso
-                    </Link>
+                    <div className="mc-header-actions">
+                        <button className="btn-secondary mc-btn-ai" onClick={() => setIsAiModalOpen(true)}>
+                            <Sparkles size={16} /> Crear Curso con IA
+                        </button>
+                        <Link to="/admin/courses/new" className="btn-primary">
+                            <Plus size={16} /> Crear Curso
+                        </Link>
+                    </div>
                 </div>
 
                 <div className="admin-table-wrapper">
                     {loading ? (
-                        <div style={{ padding: '40px', textAlign: 'center', color: 'var(--text-muted)' }}>Cargando cursos...</div>
+                        <div className="mc-loading">Cargando cursos...</div>
                     ) : (
                         <table className="admin-table">
                             <thead>
@@ -122,12 +132,12 @@ const ManageCoursesScreen = () => {
                             <tbody>
                                 {courses.map(course => (
                                     <React.Fragment key={course._id}>
-                                        <tr style={{ opacity: course.activo ? 1 : 0.6 }}>
-                                            <td style={{ cursor: 'pointer' }} onClick={() => setExpandedCourseId(course._id === expandedCourseId ? null : course._id)}>
-                                                <div style={{ fontWeight: '600', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                        <tr className={!course.activo ? "mc-row-inactive" : ""}>
+                                            <td className="mc-title-cell" onClick={() => setExpandedCourseId(course._id === expandedCourseId ? null : course._id)}>
+                                                <div className="mc-title-container">
                                                     {expandedCourseId === course._id ? <ChevronDown size={18} /> : <ChevronRight size={18} />}
                                                     <span>{course.titulo}</span>
-                                                    {!course.activo && <span className="badge" style={{ backgroundColor: '#f3f4f6', color: '#6b7280', fontSize: '10px' }}>Inactivo</span>}
+                                                    {!course.activo && <span className="badge mc-badge-inactive">Inactivo</span>}
                                                 </div>
                                             </td>
                                             <td>{course.descripcion.substring(0, 50)}...</td>
@@ -144,12 +154,12 @@ const ManageCoursesScreen = () => {
                                                             <Trash2 size={18} />
                                                         </button>
                                                     ) : (
-                                                        <button onClick={() => reactivateCourse(course._id)} className="btn-icon" style={{ color: '#10b981' }} title="Reactivar">
+                                                        <button onClick={() => reactivateCourse(course._id)} className="btn-icon mc-btn-reactivate" title="Reactivar">
                                                             <RefreshCw size={18} />
                                                         </button>
                                                     )}
                                                     {user?.rol === 'SUPERADMIN' && (
-                                                        <button onClick={() => requestDelete(course._id, true)} className="btn-icon delete" style={{ color: 'var(--danger-color)' }} title="Eliminar Definitivamente (Hard Delete)">
+                                                        <button onClick={() => requestDelete(course._id, true)} className="btn-icon delete mc-btn-hard-delete" title="Eliminar Definitivamente (Hard Delete)">
                                                             <Trash2 size={18} fill="currentColor" />
                                                         </button>
                                                     )}
@@ -157,17 +167,17 @@ const ManageCoursesScreen = () => {
                                             </td>
                                         </tr>
                                         {expandedCourseId === course._id && (
-                                            <tr style={{ backgroundColor: 'var(--bg-tertiary)' }}>
-                                                <td colSpan="4" style={{ padding: '16px 32px' }}>
-                                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-                                                        <h4 style={{ margin: 0, fontSize: '14px', color: 'var(--text-secondary)' }}>Módulos del Curso</h4>
+                                            <tr className="mc-modules-row">
+                                                <td colSpan="4" className="mc-modules-cell">
+                                                    <div className="mc-modules-header">
+                                                        <h4 className="mc-modules-title">Módulos del Curso</h4>
                                                     </div>
                                                     {course.modulos && course.modulos.length > 0 ? (
-                                                        <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                                                        <ul className="mc-modules-list">
                                                             {course.modulos.map((mod, index) => (
-                                                                <li key={mod._id || index} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 16px', backgroundColor: 'var(--bg-secondary)', marginBottom: '8px', borderRadius: '8px', border: '1px solid var(--border-color)' }}>
-                                                                    <span style={{ fontSize: '14px', fontWeight: '500' }}>{mod.titulo}</span>
-                                                                    <div style={{ display: 'flex', gap: '8px' }}>
+                                                                <li key={mod._id || index} className="mc-module-item">
+                                                                    <span className="mc-module-title">{mod.titulo}</span>
+                                                                    <div className="mc-module-actions">
                                                                         <button onClick={() => navigate(`/admin/courses/${course._id}`)} className="btn-icon edit" title="Editar Módulo">
                                                                             <Edit size={16} />
                                                                         </button>
@@ -175,7 +185,7 @@ const ManageCoursesScreen = () => {
                                                                             <Trash2 size={16} />
                                                                         </button>
                                                                         {user?.rol === 'SUPERADMIN' && (
-                                                                            <button onClick={() => requestModuleDelete(mod._id, true)} className="btn-icon delete" style={{ color: 'var(--danger-color)' }} title="Hard Delete Módulo">
+                                                                            <button onClick={() => requestModuleDelete(mod._id, true)} className="btn-icon delete mc-btn-hard-delete" title="Hard Delete Módulo">
                                                                                 <Trash2 size={16} fill="currentColor" />
                                                                             </button>
                                                                         )}
@@ -184,7 +194,7 @@ const ManageCoursesScreen = () => {
                                                             ))}
                                                         </ul>
                                                     ) : (
-                                                        <p style={{ fontSize: '13px', color: 'var(--text-muted)', margin: 0 }}>No hay módulos en este curso.</p>
+                                                        <p className="mc-module-empty">No hay módulos en este curso.</p>
                                                     )}
                                                 </td>
                                             </tr>
@@ -193,7 +203,7 @@ const ManageCoursesScreen = () => {
                                 ))}
                                 {courses.length === 0 && (
                                     <tr>
-                                        <td colSpan="4" style={{ textAlign: 'center', padding: '40px', color: 'var(--text-muted)' }}>
+                                        <td colSpan="4" className="mc-empty-state">
                                             No hay cursos creados.
                                         </td>
                                     </tr>
@@ -222,6 +232,14 @@ const ManageCoursesScreen = () => {
                     ? "ATENCIÓN: Estás a punto de ELIMINAR FÍSICAMENTE este módulo. Esta acción es irreversible. ¿Estás seguro?"
                     : "¿Estás seguro que deseas eliminar este módulo?"}
                 confirmText={isHardDelete ? "Eliminar Definitivamente" : "Eliminar"}
+            />
+            <AiCourseModal 
+                isOpen={isAiModalOpen} 
+                onClose={() => setIsAiModalOpen(false)} 
+                onGenerate={async (file) => {
+                    const response = await generateCourseFromPdfService(file);
+                    navigate('/admin/courses/new', { state: { courseData: response.data } });
+                }} 
             />
         </div>
     );

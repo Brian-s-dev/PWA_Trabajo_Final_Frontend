@@ -4,20 +4,21 @@ import { AuthProvider } from './context/AuthContext';
 import AuthMiddleware from './middlewares/AuthMiddleware';
 import AlreadyAuthMiddleware from './middlewares/AlreadyAuthMiddleware';
 import RoleMiddleware from './middlewares/RoleMiddleware';
-import LoginScreen from './Screens/Auth/LoginScreen';
-import RegisterScreen from './Screens/Auth/RegisterScreen';
-import VerifyEmailScreen from './Screens/Auth/VerifyEmailScreen';
-import ForgotPasswordScreen from './Screens/Auth/ForgotPasswordScreen';
-import ResetPasswordScreen from './Screens/Auth/ResetPasswordScreen';
-import DashboardScreen from './Screens/Dashboard/DashboardScreen';
-import CourseDetailScreen from './Screens/Course/CourseDetailScreen';
-import ModuleContentScreen from './Screens/Course/ModuleContentScreen';
-import AdminDashboardScreen from './Screens/Admin/AdminDashboardScreen';
-import ManageCoursesScreen from './Screens/Admin/ManageCoursesScreen';
-import CourseEditorScreen from './Screens/Admin/CourseEditorScreen';
-import ManageUsersScreen from './Screens/Admin/ManageUsersScreen';
-import UserEditorScreen from './Screens/Admin/UserEditorScreen';
-import AssignCoursesScreen from './Screens/Admin/AssignCoursesScreen';
+import LoginScreen from './Screens/Auth/LoginScreen/LoginScreen';
+import RegisterScreen from './Screens/Auth/RegisterScreen/RegisterScreen';
+import VerifyEmailScreen from './Screens/Auth/VerifyEmailScreen/VerifyEmailScreen';
+import ForgotPasswordScreen from './Screens/Auth/ForgotPasswordScreen/ForgotPasswordScreen';
+import ResetPasswordScreen from './Screens/Auth/ResetPasswordScreen/ResetPasswordScreen';
+import SplashScreen from './Screens/Splash/SplashScreen/SplashScreen';
+import DashboardScreen from './Screens/Dashboard/DashboardScreen/DashboardScreen';
+import CourseDetailScreen from './Screens/Course/CourseDetailScreen/CourseDetailScreen';
+import ModuleContentScreen from './Screens/Course/ModuleContentScreen/ModuleContentScreen';
+import AdminDashboardScreen from './Screens/Admin/AdminDashboardScreen/AdminDashboardScreen';
+import ManageCoursesScreen from './Screens/Admin/ManageCoursesScreen/ManageCoursesScreen';
+import CourseEditorScreen from './Screens/Admin/CourseEditorScreen/CourseEditorScreen';
+import ManageUsersScreen from './Screens/Admin/ManageUsersScreen/ManageUsersScreen';
+import UserEditorScreen from './Screens/Admin/UserEditorScreen/UserEditorScreen';
+import AssignCoursesScreen from './Screens/Admin/AssignCoursesScreen/AssignCoursesScreen';
 import Navbar from './Components/Navbar/Navbar';
 import { ThemeProvider } from './context/ThemeContext';
 
@@ -31,6 +32,10 @@ function App() {
           <Route element={<AlreadyAuthMiddleware />}>
             <Route
               path="/"
+              element={<SplashScreen />}
+            />
+            <Route
+              path="/login"
               element={<LoginScreen />}
             />
             <Route

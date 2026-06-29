@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth } from '../../../context/AuthContext';
 import { Link } from 'react-router';
-import { getMyCoursesService } from '../../services/enrollment.service';
+import { getMyCoursesService } from '../../../services/enrollment.service';
 import { BookOpen, GraduationCap, ArrowRight, CheckCircle2 } from 'lucide-react';
 import './DashboardScreen.css';
 

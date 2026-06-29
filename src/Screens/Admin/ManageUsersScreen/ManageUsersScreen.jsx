@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router';
-import { useAuth } from '../../context/AuthContext';
-import { getAllUsersService, deleteUserService, updateUserService } from '../../services/user.service';
-import ConfirmModal from '../../Components/ConfirmModal/ConfirmModal';
+import { useAuth } from '../../../context/AuthContext';
+import { getAllUsersService, deleteUserService, updateUserService } from '../../../services/user.service';
+import ConfirmModal from '../../../Components/ConfirmModal/ConfirmModal';
 import { UserPlus, Settings, Trash2, GraduationCap, ArrowLeft, RefreshCw } from 'lucide-react';
-import './AdminTables.css';
+import '../AdminTables/AdminTables.css';
+import './ManageUsersScreen.css';
 
 const ManageUsersScreen = () => {
     const { user: currentUser } = useAuth();
@@ -117,7 +118,7 @@ const ManageUsersScreen = () => {
                             </thead>
                             <tbody>
                                 {users.map(user => (
-                                    <tr key={user._id} style={{ opacity: user.activo ? 1 : 0.6 }}>
+                                    <tr key={user._id} className={!user.activo ? "mu-row-inactive" : ""}>
                                         <td>
                                             <div className="table-user-name">
                                                 {user.nombre}

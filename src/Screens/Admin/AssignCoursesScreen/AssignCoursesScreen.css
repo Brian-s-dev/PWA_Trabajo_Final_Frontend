@@ -1,3 +1,41 @@
+.ac-panel-container {
+    margin-bottom: 24px;
+}
+
+.ac-panel-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ac-panel-subtitle {
+    color: var(--text-muted);
+    font-size: 13px;
+    margin-top: 4px;
+}
+
+.ac-user-id {
+    color: var(--text-primary);
+}
+
+.ac-loading-state {
+    grid-column: 1 / -1;
+    padding: 40px;
+    text-align: center;
+    color: var(--text-muted);
+}
+
+.ac-empty-list {
+    text-align: center;
+    color: var(--text-muted);
+    margin: auto;
+}
+
+.ac-header-assigned {
+    background-color: var(--accent-light);
+    color: var(--accent-hover);
+}
+
 .assign-container {
   display: grid;
   grid-template-columns: 1fr 1fr;

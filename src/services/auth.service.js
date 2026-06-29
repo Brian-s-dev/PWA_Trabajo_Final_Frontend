@@ -97,7 +97,7 @@ export const resetPasswordService = async (reset_token, new_password) => {
 };
 
 export const updateMeService = async (updateData) => {
-    const token = localStorage.getItem('access_token');
+    const token = sessionStorage.getItem('access_token');
     const response = await fetch(`${ENVIRONMENT.URL_API}/auth/me`, {
         method: 'PUT',
         headers: {
@@ -113,7 +113,7 @@ export const updateMeService = async (updateData) => {
 };
 
 export const uploadAvatarService = async (file) => {
-    const token = localStorage.getItem('access_token');
+    const token = sessionStorage.getItem('access_token');
     const formData = new FormData();
     formData.append('avatar', file);
 
