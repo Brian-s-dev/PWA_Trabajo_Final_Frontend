@@ -11,6 +11,8 @@ const AdminDashboardScreen = () => {
     const [stats, setStats] = useState(null);
     const [myCourses, setMyCourses] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [criticalFilter, setCriticalFilter] = useState('abandonment');
+    const [hoveredPie, setHoveredPie] = useState(null);
 
     useEffect(() => {
         const fetchAll = async () => {
@@ -38,6 +40,30 @@ const AdminDashboardScreen = () => {
         { name: 'En Progreso', value: stats.distribution?.EN_PROGRESO || 0, color: '#FFBB28' },
         { name: 'Completado', value: stats.distribution?.COMPLETADO || 0, color: '#00C49F' }
     ].filter(item => item.value > 0);
+
+    const getProcessedCriticalCourses = () => {
+        if (!stats.criticalCourses || stats.criticalCourses.length === 0) return [];
+        let sorted = [...stats.criticalCourses];
+        
+        if (criticalFilter === 'abandonment') {
+            sorted.sort((a, b) => (b.abandonmentRate || 0) - (a.abandonmentRate || 0));
+        } else if (criticalFilter === 'completion') {
+            sorted.sort((a, b) => (a.completionRate || 0) - (b.completionRate || 0));
+        } else if (criticalFilter === 'volume') {
+            sorted.sort((a, b) => (b.totalEnrollments || 0) - (a.totalEnrollments || 0));
+        } else if (criticalFilter === 'fast') {
+            sorted = sorted.filter(c => c.avgCompletionTime !== null && c.avgCompletionTime !== undefined)
+                           .sort((a, b) => a.avgCompletionTime - b.avgCompletionTime);
+        }
+        return sorted.slice(0, 5);
+    };
+
+    const criticalCoursesData = getProcessedCriticalCourses();
+    const dynamicChartHeight = Math.max(300, criticalCoursesData.length * 80);
+
+    const renderCustomActiveShape = (props) => {
+        return <Cell fill={props.payload.color} />;
+    };
 
     return (
         <div className="screen-container">
@@ -74,32 +100,58 @@ const AdminDashboardScreen = () => {
                 </div>
             </div>
 
-            {/* Main Content Grid */}
-            <div className="admin-main-grid">
-                {/* Columna Izquierda: Gráficos */}
+            {/* Top Grid */}
+            <div className="admin-top-grid">
                 <div className="admin-charts-column">
-                    <div className="admin-panel-card">
-                        <h3 className="panel-card-title">Estado de las Inducciones</h3>
+                    <div className="admin-panel-card induction-card">
+                        <div className="induction-header">
+                            <h3 className="panel-card-title">Estado de las Inducciones</h3>
+                            <span className="induction-subtitle">Mes actual</span>
+                        </div>
                         <div className="donut-chart-wrapper">
                             {pieData.length > 0 ? (
                                 <>
                                     <div className="donut-chart-container">
                                         <ResponsiveContainer width="100%" height="100%">
                                             <PieChart>
-                                                <Pie data={pieData} cx="50%" cy="50%" innerRadius={50} outerRadius={70} paddingAngle={5} dataKey="value">
+                                                <Pie 
+                                                    data={pieData} 
+                                                    cx="50%" 
+                                                    cy="50%" 
+                                                    innerRadius={80} 
+                                                    outerRadius={90} 
+                                                    paddingAngle={5} 
+                                                    dataKey="value"
+                                                    onMouseEnter={(_, index) => setHoveredPie(pieData[index])}
+                                                    onMouseLeave={() => setHoveredPie(null)}
+                                                    stroke="none"
+                                                >
                                                     {pieData.map((entry, index) => (
                                                         <Cell key={`cell-${index}`} fill={entry.color} />
                                                     ))}
                                                 </Pie>
-                                                <Tooltip />
+                                                <Tooltip contentStyle={{ backgroundColor: 'var(--surface-color)', borderColor: 'var(--border-color)', color: 'var(--text-primary)', borderRadius: '8px' }} itemStyle={{ color: 'var(--text-primary)' }} />
                                             </PieChart>
                                         </ResponsiveContainer>
+                                        <div className="donut-center-content">
+                                            {hoveredPie ? (
+                                                <>
+                                                    <span className="donut-center-value">{hoveredPie.value}</span>
+                                                    <span className="donut-center-label">{hoveredPie.name}</span>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <span className="donut-center-value">{stats.globalCompletionRate}%</span>
+                                                    <span className="donut-center-label">Tasa de Éxito</span>
+                                                </>
+                                            )}
+                                        </div>
                                     </div>
-                                    <div className="donut-chart-legend">
+                                    <div className="donut-chart-legend vertical">
                                         {pieData.map((item, idx) => (
                                             <div key={idx} className="legend-item">
-                                                <span className="legend-dot" style={{ backgroundColor: item.color }} />
-                                                <span className="legend-label">{item.name} ({item.value})</span>
+                                                <div className="legend-dot-square" style={{ backgroundColor: item.color }} />
+                                                <span className="legend-label">{item.name}</span>
                                             </div>
                                         ))}
                                     </div>
@@ -109,30 +161,11 @@ const AdminDashboardScreen = () => {
                             )}
                         </div>
                     </div>
-
-                    <div className="admin-panel-card">
-                        <h3 className="panel-card-title">Cursos Críticos (Tasa de Finalización)</h3>
-                        <div className="flex-container-center gap-20">
-                            {stats.criticalCourses?.length > 0 ? (
-                                <ResponsiveContainer width="100%" height={250}>
-                                    <BarChart data={stats.criticalCourses} layout="vertical" margin={{ left: 50 }}>
-                                        <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="var(--border-color)" />
-                                        <XAxis type="number" domain={[0, 100]} unit="%" tick={{ fill: 'var(--text-muted)' }} />
-                                        <YAxis dataKey="titulo" type="category" width={100} tick={{ fill: 'var(--text-primary)', fontSize: 11 }} />
-                                        <Tooltip />
-                                        <Bar dataKey="completionRate" fill="var(--accent-color)" radius={[0, 4, 4, 0]} name="Finalización (%)" />
-                                    </BarChart>
-                                </ResponsiveContainer>
-                            ) : (
-                                <p className="empty-state-text">Sin cursos registrados.</p>
-                            )}
-                        </div>
-                    </div>
                 </div>
 
                 {/* Columna Derecha: Acciones y Doble Rol */}
                 <div className="admin-actions-column">
-                    <div className="admin-panel-card">
+                    <div className="admin-panel-card action-card-half">
                         <h3 className="panel-card-title">Acciones Rápidas</h3>
                         <div className="quick-actions-list">
                             <Link to="/admin/courses" className="quick-action-btn">
@@ -147,7 +180,7 @@ const AdminDashboardScreen = () => {
                         </div>
                     </div>
 
-                    <div className="admin-panel-card double-role-card">
+                    <div className="admin-panel-card double-role-card action-card-half">
                         <h3 className="panel-card-title">🎒 Mis Capacitaciones</h3>
                         <p className="panel-card-desc">Cursos asignados a ti como alumno.</p>
                         <div className="my-courses-list">
@@ -162,6 +195,88 @@ const AdminDashboardScreen = () => {
                                 ))
                             )}
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Bottom Full Width Grid */}
+            <div className="admin-bottom-grid">
+                <div className="admin-panel-card full-width-card critical-courses-container">
+                    <div className="critical-courses-sidebar">
+                        <div className="sidebar-header">
+                            <Activity size={18} color="var(--accent-color)" />
+                            <h3>Métricas de Cursos</h3>
+                        </div>
+                        <div className="critical-tabs">
+                            <button className={`critical-tab ${criticalFilter === 'abandonment' ? 'active' : ''}`} onClick={() => setCriticalFilter('abandonment')}>
+                                Mayor tasa de abandono
+                            </button>
+                            <button className={`critical-tab ${criticalFilter === 'completion' ? 'active' : ''}`} onClick={() => setCriticalFilter('completion')}>
+                                Menor finalización
+                            </button>
+                            <button className={`critical-tab ${criticalFilter === 'volume' ? 'active' : ''}`} onClick={() => setCriticalFilter('volume')}>
+                                Mayor volumen alumnos
+                            </button>
+                            <button className={`critical-tab ${criticalFilter === 'fast' ? 'active' : ''}`} onClick={() => setCriticalFilter('fast')}>
+                                Completados más rápido
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div className="critical-courses-chart">
+                        <div className="chart-header">
+                            {criticalFilter === 'abandonment' && 'Tasa de abandono (%) - Cursos con inscritos en progreso sin completar'}
+                            {criticalFilter === 'completion' && 'Menor tasa de finalización (%)'}
+                            {criticalFilter === 'volume' && 'Cursos con mayor volumen de inscripciones'}
+                            {criticalFilter === 'fast' && 'Cursos completados más rápido (Horas promedio)'}
+                        </div>
+                        
+                        {criticalCoursesData.length > 0 ? (
+                            <ResponsiveContainer width="100%" height={dynamicChartHeight}>
+                                <BarChart data={criticalCoursesData} layout="vertical" margin={{ left: 20, right: 20, top: 20, bottom: 5 }}>
+                                    <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="rgba(255,255,255,0.05)" />
+                                    <XAxis 
+                                        type="number" 
+                                        tick={{ fill: 'var(--text-muted)' }} 
+                                        axisLine={{ stroke: 'rgba(255,255,255,0.1)' }}
+                                        tickLine={false}
+                                    />
+                                    <YAxis 
+                                        dataKey="titulo" 
+                                        type="category" 
+                                        width={200} 
+                                        tick={{ fill: 'var(--text-primary)', fontSize: 12 }} 
+                                        axisLine={false}
+                                        tickLine={false}
+                                    />
+                                    <Tooltip 
+                                        contentStyle={{ backgroundColor: 'var(--surface-color)', borderColor: 'var(--border-color)', color: 'var(--text-primary)', borderRadius: '8px' }}
+                                        cursor={{ fill: 'rgba(255,255,255,0.05)' }}
+                                    />
+                                    <Bar 
+                                        dataKey={
+                                            criticalFilter === 'abandonment' ? 'abandonmentRate' :
+                                            criticalFilter === 'completion' ? 'completionRate' :
+                                            criticalFilter === 'volume' ? 'totalEnrollments' :
+                                            'avgCompletionTime'
+                                        } 
+                                        fill="var(--accent-color)" 
+                                        radius={[0, 4, 4, 0]} 
+                                        barSize={12}
+                                        name={
+                                            criticalFilter === 'abandonment' ? 'Tasa Abandono (%)' :
+                                            criticalFilter === 'completion' ? 'Tasa Finalización (%)' :
+                                            criticalFilter === 'volume' ? 'Alumnos' :
+                                            'Tiempo Promedio (ms)'
+                                        }
+                                    />
+                                </BarChart>
+                            </ResponsiveContainer>
+                        ) : (
+                            <div className="empty-state-chart">
+                                <p className="empty-state-text">Sin datos suficientes para este filtro.</p>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
