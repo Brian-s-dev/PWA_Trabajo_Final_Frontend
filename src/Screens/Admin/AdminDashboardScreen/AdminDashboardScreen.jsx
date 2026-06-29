@@ -13,6 +13,13 @@ const AdminDashboardScreen = () => {
     const [loading, setLoading] = useState(true);
     const [criticalFilter, setCriticalFilter] = useState('abandonment');
     const [hoveredPie, setHoveredPie] = useState(null);
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+    useEffect(() => {
+        const handleResize = () => setWindowWidth(window.innerWidth);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     useEffect(() => {
         const fetchAll = async () => {
@@ -63,6 +70,24 @@ const AdminDashboardScreen = () => {
 
     const renderCustomActiveShape = (props) => {
         return <Cell fill={props.payload.color} />;
+    };
+
+    const isMobileChart = windowWidth <= 400;
+
+    const renderYAxisTick = ({ x, y, payload }) => {
+        if (isMobileChart) {
+            const shortText = payload.value.length > 45 ? payload.value.substring(0, 45) + '...' : payload.value;
+            return (
+                <text x={20} y={y - 12} fill="var(--text-primary)" fontSize={11} textAnchor="start">
+                    {shortText}
+                </text>
+            );
+        }
+        return (
+            <text x={x} y={y} dy={4} fill="var(--text-primary)" fontSize={12} textAnchor="end">
+                {payload.value}
+            </text>
+        );
     };
 
     return (
@@ -244,8 +269,8 @@ const AdminDashboardScreen = () => {
                                     <YAxis 
                                         dataKey="titulo" 
                                         type="category" 
-                                        width={200} 
-                                        tick={{ fill: 'var(--text-primary)', fontSize: 12 }} 
+                                        width={isMobileChart ? 5 : 200} 
+                                        tick={renderYAxisTick} 
                                         axisLine={false}
                                         tickLine={false}
                                     />
