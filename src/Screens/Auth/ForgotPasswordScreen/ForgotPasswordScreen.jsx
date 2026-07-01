@@ -3,7 +3,12 @@ import { Link } from 'react-router';
 import useForm from '../../../hooks/useForm';
 import useRequest from '../../../hooks/useRequest';
 import { forgotPasswordService } from '../../../services/auth.service';
+<<<<<<< HEAD
 import { KeyRound, Layout } from 'lucide-react';
+=======
+import { KeyRound } from 'lucide-react';
+import LogoIcon from '../../../Components/LogoIcon/LogoIcon';
+>>>>>>> 3317ee4c62fecb43cda44e8caaee3b0907c52ac8
 import '../AuthScreens.css';
 
 const ForgotPasswordScreen = () => {
@@ -25,9 +30,15 @@ const ForgotPasswordScreen = () => {
         <div className="auth-container">
             <div className="auth-card">
                 <div className="auth-icon-wrapper">
+<<<<<<< HEAD
                     <Layout size={24} />
                 </div>
 
+=======
+                    <LogoIcon size={48} />
+                </div>
+                
+>>>>>>> 3317ee4c62fecb43cda44e8caaee3b0907c52ac8
                 <h2 className="auth-title">Recuperar Contraseña</h2>
                 <p className="auth-subtitle">Ingresa tu email para recibir instrucciones</p>
 

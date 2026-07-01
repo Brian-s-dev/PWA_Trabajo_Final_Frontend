@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+/* Header and layout styles */
+>>>>>>> 3317ee4c62fecb43cda44e8caaee3b0907c52ac8
 .mc-header-left {
     display: flex;
     align-items: center;
@@ -24,6 +28,10 @@
     color: var(--text-muted);
 }
 
+<<<<<<< HEAD
+=======
+/* Course row styles */
+>>>>>>> 3317ee4c62fecb43cda44e8caaee3b0907c52ac8
 .mc-row-inactive {
     opacity: 0.6;
 }
@@ -45,6 +53,10 @@
     font-size: 10px;
 }
 
+<<<<<<< HEAD
+=======
+/* Actions buttons specific styles */
+>>>>>>> 3317ee4c62fecb43cda44e8caaee3b0907c52ac8
 .mc-btn-reactivate {
     color: #10b981;
 }
@@ -53,6 +65,10 @@
     color: var(--danger-color);
 }
 
+<<<<<<< HEAD
+=======
+/* Modules row styles */
+>>>>>>> 3317ee4c62fecb43cda44e8caaee3b0907c52ac8
 .mc-modules-row {
     background-color: var(--bg-tertiary);
 }

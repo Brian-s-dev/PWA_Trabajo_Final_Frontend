@@ -42,7 +42,11 @@ const AiCourseModal = ({ isOpen, onClose, onGenerate }) => {
         setIsGenerating(true);
         try {
             await onGenerate(file);
+<<<<<<< HEAD
             setFile(null);
+=======
+            setFile(null); // Limpiar tras éxito
+>>>>>>> 3317ee4c62fecb43cda44e8caaee3b0907c52ac8
             onClose();
         } catch (error) {
             console.error(error);

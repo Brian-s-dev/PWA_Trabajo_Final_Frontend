@@ -19,9 +19,12 @@ import CourseEditorScreen from './Screens/Admin/CourseEditorScreen/CourseEditorS
 import ManageUsersScreen from './Screens/Admin/ManageUsersScreen/ManageUsersScreen';
 import UserEditorScreen from './Screens/Admin/UserEditorScreen/UserEditorScreen';
 import AssignCoursesScreen from './Screens/Admin/AssignCoursesScreen/AssignCoursesScreen';
+<<<<<<< HEAD
 import AssignUsersToCourseScreen from './Screens/Admin/AssignUsersToCourseScreen/AssignUsersToCourseScreen';
 import CourseAnalyticsScreen from './Screens/Admin/CourseAnalyticsScreen/CourseAnalyticsScreen';
 import UserAnalyticsScreen from './Screens/Admin/UserAnalyticsScreen/UserAnalyticsScreen';
+=======
+>>>>>>> 3317ee4c62fecb43cda44e8caaee3b0907c52ac8
 import Navbar from './Components/Navbar/Navbar';
 import { ThemeProvider } from './context/ThemeContext';
 

@@ -3,8 +3,12 @@ import { Link } from 'react-router';
 import { useAuth } from '../../../context/AuthContext';
 import { getAllUsersService, deleteUserService, updateUserService } from '../../../services/user.service';
 import ConfirmModal from '../../../Components/ConfirmModal/ConfirmModal';
+<<<<<<< HEAD
 import SearchBar from '../../../Components/SearchBar/SearchBar';
 import { UserPlus, Settings, Trash2, GraduationCap, ArrowLeft, RefreshCw, BarChart2 } from 'lucide-react';
+=======
+import { UserPlus, Settings, Trash2, GraduationCap, ArrowLeft, RefreshCw } from 'lucide-react';
+>>>>>>> 3317ee4c62fecb43cda44e8caaee3b0907c52ac8
 import '../AdminTables/AdminTables.css';
 import './ManageUsersScreen.css';
 
@@ -139,7 +143,11 @@ const ManageUsersScreen = () => {
                                 </tr>
                             </thead>
                             <tbody>
+<<<<<<< HEAD
                                 {filteredUsers.map(user => (
+=======
+                                {users.map(user => (
+>>>>>>> 3317ee4c62fecb43cda44e8caaee3b0907c52ac8
                                     <tr key={user._id} className={!user.activo ? "mu-row-inactive" : ""}>
                                         <td>
                                             <div className="table-user-name">
