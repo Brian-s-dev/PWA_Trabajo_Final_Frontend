@@ -1,27 +1,11 @@
 .dashboard-header {
   margin-bottom: 48px;
-<<<<<<< HEAD
-<<<<<<<< HEAD:src/Screens/Dashboard/DashboardScreen/DashboardScreen.css
   text-align: left;
-========
-  text-align: left; /* Dovetail usually aligns left for a clean document feel */
->>>>>>>> 3317ee4c62fecb43cda44e8caaee3b0907c52ac8:src/Screens/Dashboard/DashboardScreen.css
-=======
-  text-align: left; /* Dovetail usually aligns left for a clean document feel */
->>>>>>> 3317ee4c62fecb43cda44e8caaee3b0907c52ac8
 }
 
 .dashboard-title {
   font-size: 32px;
-<<<<<<< HEAD
-<<<<<<<< HEAD:src/Screens/Dashboard/DashboardScreen/DashboardScreen.css
   font-weight: 700;
-========
-  font-weight: 700; /* Dovetail uses slightly lighter weights for large headers, 700 is good for Inter */
->>>>>>>> 3317ee4c62fecb43cda44e8caaee3b0907c52ac8:src/Screens/Dashboard/DashboardScreen.css
-=======
-  font-weight: 700; /* Dovetail uses slightly lighter weights for large headers, 700 is good for Inter */
->>>>>>> 3317ee4c62fecb43cda44e8caaee3b0907c52ac8
   color: var(--text-primary);
   letter-spacing: -0.5px;
 }
@@ -45,15 +29,7 @@
   border-radius: 12px;
   display: flex;
   flex-direction: column;
-<<<<<<< HEAD
-<<<<<<<< HEAD:src/Screens/Dashboard/DashboardScreen/DashboardScreen.css
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-========
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); /* Super smooth dovetailey transition */
->>>>>>>> 3317ee4c62fecb43cda44e8caaee3b0907c52ac8:src/Screens/Dashboard/DashboardScreen.css
-=======
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); /* Super smooth dovetailey transition */
->>>>>>> 3317ee4c62fecb43cda44e8caaee3b0907c52ac8
   width: 100%;
   position: relative;
   overflow: hidden;
@@ -62,15 +38,7 @@
 
 .course-card:hover {
   transform: translateY(-2px);
-<<<<<<< HEAD
-<<<<<<<< HEAD:src/Screens/Dashboard/DashboardScreen/DashboardScreen.css
   border-color: var(--accent-color);
-========
-  border-color: var(--accent-color); /* Light up border */
->>>>>>>> 3317ee4c62fecb43cda44e8caaee3b0907c52ac8:src/Screens/Dashboard/DashboardScreen.css
-=======
-  border-color: var(--accent-color); /* Light up border */
->>>>>>> 3317ee4c62fecb43cda44e8caaee3b0907c52ac8
   box-shadow: var(--card-shadow);
 }
 
@@ -188,14 +156,6 @@
   }
 }
 
-<<<<<<< HEAD
-<<<<<<<< HEAD:src/Screens/Dashboard/DashboardScreen/DashboardScreen.css
-========
-/* Empty State Utilities */
->>>>>>>> 3317ee4c62fecb43cda44e8caaee3b0907c52ac8:src/Screens/Dashboard/DashboardScreen.css
-=======
-/* Empty State Utilities */
->>>>>>> 3317ee4c62fecb43cda44e8caaee3b0907c52ac8
 .empty-state-padding {
     text-align: center;
     padding: 40px;

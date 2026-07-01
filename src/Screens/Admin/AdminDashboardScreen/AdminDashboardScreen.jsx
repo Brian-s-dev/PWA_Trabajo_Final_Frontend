@@ -125,10 +125,6 @@ const AdminDashboardScreen = () => {
                 </div>
             </div>
 
-<<<<<<< HEAD
-=======
-            {/* Top Grid */}
->>>>>>> 3317ee4c62fecb43cda44e8caaee3b0907c52ac8
             <div className="admin-top-grid">
                 <div className="admin-charts-column">
                     <div className="admin-panel-card induction-card">
@@ -191,11 +187,7 @@ const AdminDashboardScreen = () => {
                     </div>
                 </div>
 
-<<<<<<< HEAD
                 {/* barra laterladerecha */}
-=======
-                {/* Columna Derecha: Acciones y Doble Rol */}
->>>>>>> 3317ee4c62fecb43cda44e8caaee3b0907c52ac8
                 <div className="admin-actions-column">
                     <div className="admin-panel-card action-card-half">
                         <h3 className="panel-card-title">Acciones Rápidas</h3>

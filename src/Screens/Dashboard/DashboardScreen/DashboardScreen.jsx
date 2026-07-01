@@ -3,10 +3,7 @@ import { useAuth } from '../../../context/AuthContext';
 import { Link } from 'react-router';
 import { getMyCoursesService } from '../../../services/enrollment.service';
 import { BookOpen, GraduationCap, ArrowRight, CheckCircle2 } from 'lucide-react';
-<<<<<<< HEAD
 import PlexusBackground from '../../../Components/PlexusBackground/PlexusBackground';
-=======
->>>>>>> 3317ee4c62fecb43cda44e8caaee3b0907c52ac8
 import './DashboardScreen.css';
 
 const DashboardScreen = () => {
@@ -37,10 +34,7 @@ const DashboardScreen = () => {
 
     return (
         <div className="screen-container">
-<<<<<<< HEAD
             <PlexusBackground />
-=======
->>>>>>> 3317ee4c62fecb43cda44e8caaee3b0907c52ac8
             <div className="dashboard-header">
                 <h1 className="dashboard-title">Proyectos de capacitación</h1>
                 <p className="dashboard-subtitle">Bienvenido de vuelta, {user?.nombre || 'Estudiante'}. Aquí están tus módulos asignados.</p>

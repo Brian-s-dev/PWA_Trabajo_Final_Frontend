@@ -4,11 +4,7 @@
     align-items: center;
     height: 100vh;
     width: 100vw;
-<<<<<<< HEAD
     background-color: transparent;
-=======
-    background-color: var(--bg-primary);
->>>>>>> 3317ee4c62fecb43cda44e8caaee3b0907c52ac8
     position: fixed;
     top: 0;
     left: 0;

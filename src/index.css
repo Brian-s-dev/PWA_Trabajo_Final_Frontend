@@ -28,10 +28,7 @@
 }
 
 body.dark {
-<<<<<<< HEAD
-=======
   /* DARK THEME VARIABLES (Dovetail Inspired) */
->>>>>>> 3317ee4c62fecb43cda44e8caaee3b0907c52ac8
   --bg-primary: #0a0a0a;
   --bg-secondary: #121214;
   --bg-tertiary: #18181b;
@@ -42,11 +39,7 @@ body.dark {
   
   --border-color: rgba(255, 255, 255, 0.08);
   
-<<<<<<< HEAD
-  --accent-color: #6366f1;
-=======
   --accent-color: #6366f1; /* Indigo vibrant */
->>>>>>> 3317ee4c62fecb43cda44e8caaee3b0907c52ac8
   --accent-hover: #818cf8;
   --accent-light: rgba(99, 102, 241, 0.15);
 

@@ -3,12 +3,7 @@ import { useNavigate, Link } from 'react-router';
 import useForm from '../../../hooks/useForm';
 import useRequest from '../../../hooks/useRequest';
 import { registerService } from '../../../services/auth.service';
-<<<<<<< HEAD
 import { UserPlus, Layout } from 'lucide-react';
-=======
-import { UserPlus } from 'lucide-react';
-import LogoIcon from '../../../Components/LogoIcon/LogoIcon';
->>>>>>> 3317ee4c62fecb43cda44e8caaee3b0907c52ac8
 import '../AuthScreens.css';
 
 const RegisterScreen = () => {
@@ -35,11 +30,7 @@ const RegisterScreen = () => {
         <div className="auth-container">
             <div className="auth-card">
                 <div className="auth-icon-wrapper">
-<<<<<<< HEAD
                     <Layout size={24} />
-=======
-                    <LogoIcon size={48} />
->>>>>>> 3317ee4c62fecb43cda44e8caaee3b0907c52ac8
                 </div>
                 
                 <h2 className="auth-title">Crear nueva cuenta</h2>

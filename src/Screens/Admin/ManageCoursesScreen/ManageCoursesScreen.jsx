@@ -6,12 +6,8 @@ import { deleteModuleService } from '../../../services/module.service';
 import { generateCourseFromPdfService } from '../../../services/ai.service';
 import ConfirmModal from '../../../Components/ConfirmModal/ConfirmModal';
 import AiCourseModal from '../../../Components/AiCourseModal/AiCourseModal';
-<<<<<<< HEAD
 import SearchBar from '../../../Components/SearchBar/SearchBar';
 import { Plus, Edit, Trash2, ArrowLeft, RefreshCw, ChevronDown, ChevronRight, Sparkles, BarChart2, Users } from 'lucide-react';
-=======
-import { Plus, Edit, Trash2, ArrowLeft, RefreshCw, ChevronDown, ChevronRight, Sparkles } from 'lucide-react';
->>>>>>> 3317ee4c62fecb43cda44e8caaee3b0907c52ac8
 import '../AdminTables/AdminTables.css';
 import './ManageCoursesScreen.css';
 
@@ -38,10 +34,7 @@ const ManageCoursesScreen = () => {
         try {
             const response = await getAllCoursesService(true);
             setCourses(response.data || []);
-<<<<<<< HEAD
             setFilteredCourses(response.data || []);
-=======
->>>>>>> 3317ee4c62fecb43cda44e8caaee3b0907c52ac8
         } catch (error) {
             console.error(error);
             alert('Error al cargar cursos: ' + error.message);
@@ -119,19 +112,13 @@ const ManageCoursesScreen = () => {
     return (
         <div className="screen-container">
             <div className="admin-panel-container">
-<<<<<<< HEAD
                 <div className="admin-panel-header" style={{ alignItems: 'center' }}>
                     <div className="flex-center-gap-16" style={{ flexShrink: 0 }}>
-=======
-                <div className="admin-panel-header">
-                    <div className="mc-header-left">
->>>>>>> 3317ee4c62fecb43cda44e8caaee3b0907c52ac8
                         <Link to="/admin" className="btn-icon" title="Volver al Panel">
                             <ArrowLeft size={20} />
                         </Link>
                         <h1 className="admin-panel-title">Gestión de Cursos</h1>
                     </div>
-<<<<<<< HEAD
 
                     <div style={{ flex: 1, display: 'flex', justifyContent: 'center', padding: '0 20px' }}>
                         <SearchBar 
@@ -144,11 +131,6 @@ const ManageCoursesScreen = () => {
                     <div className="flex-center-gap-16" style={{ flexShrink: 0 }}>
                         <button className="btn-secondary" onClick={() => setIsAiModalOpen(true)}>
                             <Sparkles size={16} /> Generar con IA
-=======
-                    <div className="mc-header-actions">
-                        <button className="btn-secondary mc-btn-ai" onClick={() => setIsAiModalOpen(true)}>
-                            <Sparkles size={16} /> Crear Curso con IA
->>>>>>> 3317ee4c62fecb43cda44e8caaee3b0907c52ac8
                         </button>
                         <Link to="/admin/courses/new" className="btn-primary">
                             <Plus size={16} /> Crear Curso

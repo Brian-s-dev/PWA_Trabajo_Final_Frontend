@@ -37,13 +37,8 @@ const LoginScreen = () => {
     return (
         <div className="auth-container">
             <div className="auth-card">
-<<<<<<< HEAD
                 <div className="auth-icon-wrapper" style={{ margin: '0 auto 10px auto' }}>
                     <LogoIcon size={40} />
-=======
-                <div className="auth-icon-wrapper">
-                    <LogoIcon size={48} />
->>>>>>> 3317ee4c62fecb43cda44e8caaee3b0907c52ac8
                 </div>
                 
                 <h2 className="auth-title">Bienvenido de vuelta</h2>

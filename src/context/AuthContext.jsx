@@ -34,11 +34,7 @@ export const AuthProvider = ({ children }) => {
         setUser(newData);
     };
 
-<<<<<<< HEAD
     // configuracion para el timeout del usuario
-=======
-    // Inactividad: desloguear después de 5 minutos (300000 ms)
->>>>>>> 3317ee4c62fecb43cda44e8caaee3b0907c52ac8
     useEffect(() => {
         let timeoutId;
 

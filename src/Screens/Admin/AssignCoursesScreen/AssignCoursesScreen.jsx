@@ -68,13 +68,8 @@ const AssignCoursesScreen = () => {
     return (
         <div className="screen-container">
             <div className="admin-panel-container ac-panel-container">
-<<<<<<< HEAD
                 <div className="admin-panel-header" style={{ alignItems: 'center' }}>
                     <div style={{ flexShrink: 0 }}>
-=======
-                <div className="admin-panel-header">
-                    <div>
->>>>>>> 3317ee4c62fecb43cda44e8caaee3b0907c52ac8
                         <h1 className="admin-panel-title ac-panel-title">
                             <User /> Asignación de Cursos
                         </h1>
@@ -105,13 +100,8 @@ const AssignCoursesScreen = () => {
                         <div className="assign-column">
                             <div className="assign-column-header">Cursos Disponibles</div>
                             <div className="assign-list">
-<<<<<<< HEAD
                                 {filteredUnassigned.length === 0 ? (
                                     <p className="ac-empty-list">No hay cursos disponibles que coincidan con tu búsqueda.</p>
-=======
-                                {unassignedCourses.length === 0 ? (
-                                    <p className="ac-empty-list">No hay más cursos disponibles.</p>
->>>>>>> 3317ee4c62fecb43cda44e8caaee3b0907c52ac8
                                 ) : (
                                     filteredUnassigned.map(course => (
                                         <div key={course._id} className="assign-item">
@@ -130,13 +120,8 @@ const AssignCoursesScreen = () => {
                                 Cursos Asignados
                             </div>
                             <div className="assign-list">
-<<<<<<< HEAD
                                 {filteredAssigned.length === 0 ? (
                                     <p className="ac-empty-list">El usuario no tiene cursos asignados que coincidan con tu búsqueda.</p>
-=======
-                                {assignedCourses.length === 0 ? (
-                                    <p className="ac-empty-list">El usuario no tiene cursos asignados.</p>
->>>>>>> 3317ee4c62fecb43cda44e8caaee3b0907c52ac8
                                 ) : (
                                     filteredAssigned.map(course => (
                                         <div key={course._id} className="assign-item">

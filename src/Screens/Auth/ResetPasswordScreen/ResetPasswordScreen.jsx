@@ -3,12 +3,7 @@ import { useSearchParams, useNavigate, Link } from 'react-router';
 import useForm from '../../../hooks/useForm';
 import useRequest from '../../../hooks/useRequest';
 import { resetPasswordService } from '../../../services/auth.service';
-<<<<<<< HEAD
 import { ShieldCheck, Layout } from 'lucide-react';
-=======
-import { ShieldCheck } from 'lucide-react';
-import LogoIcon from '../../../Components/LogoIcon/LogoIcon';
->>>>>>> 3317ee4c62fecb43cda44e8caaee3b0907c52ac8
 import '../AuthScreens.css';
 
 const ResetPasswordScreen = () => {
@@ -46,11 +41,7 @@ const ResetPasswordScreen = () => {
         <div className="auth-container">
             <div className="auth-card">
                 <div className="auth-icon-wrapper">
-<<<<<<< HEAD
                     <Layout size={24} />
-=======
-                    <LogoIcon size={48} />
->>>>>>> 3317ee4c62fecb43cda44e8caaee3b0907c52ac8
                 </div>
                 
                 <h2 className="auth-title">Crear nueva contraseña</h2>
