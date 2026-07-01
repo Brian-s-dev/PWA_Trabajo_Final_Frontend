@@ -45,15 +45,15 @@
 
 .admin-table {
   width: 100%;
-  min-width: 750px;
+  min-width: 950px;
   border-collapse: collapse;
   table-layout: fixed;
 }
 
 .admin-table th:nth-child(1) { width: 32%; }
-.admin-table th:nth-child(2) { width: 33%; }
-.admin-table th:nth-child(3) { width: 12%; }
-.admin-table th:nth-child(4) { width: 23%; }
+.admin-table th:nth-child(2) { width: 28%; }
+.admin-table th:nth-child(3) { width: 14%; }
+.admin-table th:nth-child(4) { width: 26%; }
 
 .admin-table th {
   background-color: var(--bg-tertiary);
@@ -83,7 +83,7 @@
 
 .table-actions {
   display: flex;
-  gap: 8px;
+  gap: 12px;
 }
 
 .btn-icon {
