@@ -65,8 +65,8 @@ const AdminDashboardScreen = () => {
         return sorted.slice(0, 5);
     };
 
-    const dynamicChartHeight = Math.max(300, criticalCoursesData.length * 80);
     const criticalCoursesData = getProcessedCriticalCourses();
+    const dynamicChartHeight = Math.max(300, criticalCoursesData.length * 80);
 
     const renderCustomActiveShape = (props) => {
         return <Cell fill={props.payload.color} />;
