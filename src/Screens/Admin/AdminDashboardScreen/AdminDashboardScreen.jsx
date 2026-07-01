@@ -51,7 +51,7 @@ const AdminDashboardScreen = () => {
     const getProcessedCriticalCourses = () => {
         if (!stats.criticalCourses || stats.criticalCourses.length === 0) return [];
         let sorted = [...stats.criticalCourses];
-        
+
         if (criticalFilter === 'abandonment') {
             sorted.sort((a, b) => (b.abandonmentRate || 0) - (a.abandonmentRate || 0));
         } else if (criticalFilter === 'completion') {
@@ -60,7 +60,7 @@ const AdminDashboardScreen = () => {
             sorted.sort((a, b) => (b.totalEnrollments || 0) - (a.totalEnrollments || 0));
         } else if (criticalFilter === 'fast') {
             sorted = sorted.filter(c => c.avgCompletionTime !== null && c.avgCompletionTime !== undefined)
-                           .sort((a, b) => a.avgCompletionTime - b.avgCompletionTime);
+                .sort((a, b) => a.avgCompletionTime - b.avgCompletionTime);
         }
         return sorted.slice(0, 5);
     };
@@ -92,7 +92,6 @@ const AdminDashboardScreen = () => {
 
     return (
         <div className="screen-container">
-            {/* Header */}
             <div className="admin-dashboard-header">
                 <div>
                     <h1 className="admin-title">Panel de Control Global</h1>
@@ -100,7 +99,6 @@ const AdminDashboardScreen = () => {
                 </div>
             </div>
 
-            {/* KPIs */}
             <div className="admin-kpi-grid">
                 <div className="admin-kpi-card">
                     <div className="kpi-icon"><Users size={24} /></div>
@@ -138,13 +136,13 @@ const AdminDashboardScreen = () => {
                                     <div className="donut-chart-container">
                                         <ResponsiveContainer width="100%" height="100%">
                                             <PieChart>
-                                                <Pie 
-                                                    data={pieData} 
-                                                    cx="50%" 
-                                                    cy="50%" 
-                                                    innerRadius={80} 
-                                                    outerRadius={90} 
-                                                    paddingAngle={5} 
+                                                <Pie
+                                                    data={pieData}
+                                                    cx="50%"
+                                                    cy="50%"
+                                                    innerRadius={80}
+                                                    outerRadius={90}
+                                                    paddingAngle={5}
                                                     dataKey="value"
                                                     onMouseEnter={(_, index) => setHoveredPie(pieData[index])}
                                                     onMouseLeave={() => setHoveredPie(null)}
@@ -187,7 +185,6 @@ const AdminDashboardScreen = () => {
                     </div>
                 </div>
 
-                {/* barra laterladerecha */}
                 <div className="admin-actions-column">
                     <div className="admin-panel-card action-card-half">
                         <h3 className="panel-card-title">Acciones Rápidas</h3>
@@ -223,7 +220,6 @@ const AdminDashboardScreen = () => {
                 </div>
             </div>
 
-            {/* Bottom Full Width Grid */}
             <div className="admin-bottom-grid">
                 <div className="admin-panel-card full-width-card critical-courses-container">
                     <div className="critical-courses-sidebar">
@@ -246,7 +242,7 @@ const AdminDashboardScreen = () => {
                             </button>
                         </div>
                     </div>
-                    
+
                     <div className="critical-courses-chart">
                         <div className="chart-header">
                             {criticalFilter === 'abandonment' && 'Tasa de abandono (%) - Cursos con inscritos en progreso sin completar'}
@@ -254,44 +250,44 @@ const AdminDashboardScreen = () => {
                             {criticalFilter === 'volume' && 'Cursos con mayor volumen de inscripciones'}
                             {criticalFilter === 'fast' && 'Cursos completados más rápido (Horas promedio)'}
                         </div>
-                        
+
                         {criticalCoursesData.length > 0 ? (
                             <ResponsiveContainer width="100%" height={dynamicChartHeight}>
                                 <BarChart data={criticalCoursesData} layout="vertical" margin={{ left: 20, right: 20, top: 20, bottom: 5 }}>
                                     <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="rgba(255,255,255,0.05)" />
-                                    <XAxis 
-                                        type="number" 
-                                        tick={{ fill: 'var(--text-muted)' }} 
+                                    <XAxis
+                                        type="number"
+                                        tick={{ fill: 'var(--text-muted)' }}
                                         axisLine={{ stroke: 'rgba(255,255,255,0.1)' }}
                                         tickLine={false}
                                     />
-                                    <YAxis 
-                                        dataKey="titulo" 
-                                        type="category" 
-                                        width={isMobileChart ? 5 : 200} 
-                                        tick={renderYAxisTick} 
+                                    <YAxis
+                                        dataKey="titulo"
+                                        type="category"
+                                        width={isMobileChart ? 5 : 200}
+                                        tick={renderYAxisTick}
                                         axisLine={false}
                                         tickLine={false}
                                     />
-                                    <Tooltip 
+                                    <Tooltip
                                         contentStyle={{ backgroundColor: 'var(--surface-color)', borderColor: 'var(--border-color)', color: 'var(--text-primary)', borderRadius: '8px' }}
                                         cursor={{ fill: 'rgba(255,255,255,0.05)' }}
                                     />
-                                    <Bar 
+                                    <Bar
                                         dataKey={
                                             criticalFilter === 'abandonment' ? 'abandonmentRate' :
-                                            criticalFilter === 'completion' ? 'completionRate' :
-                                            criticalFilter === 'volume' ? 'totalEnrollments' :
-                                            'avgCompletionTime'
-                                        } 
-                                        fill="var(--accent-color)" 
-                                        radius={[0, 4, 4, 0]} 
+                                                criticalFilter === 'completion' ? 'completionRate' :
+                                                    criticalFilter === 'volume' ? 'totalEnrollments' :
+                                                        'avgCompletionTime'
+                                        }
+                                        fill="var(--accent-color)"
+                                        radius={[0, 4, 4, 0]}
                                         barSize={12}
                                         name={
                                             criticalFilter === 'abandonment' ? 'Tasa Abandono (%)' :
-                                            criticalFilter === 'completion' ? 'Tasa Finalización (%)' :
-                                            criticalFilter === 'volume' ? 'Alumnos' :
-                                            'Tiempo Promedio (ms)'
+                                                criticalFilter === 'completion' ? 'Tasa Finalización (%)' :
+                                                    criticalFilter === 'volume' ? 'Alumnos' :
+                                                        'Tiempo Promedio (ms)'
                                         }
                                     />
                                 </BarChart>
@@ -305,7 +301,6 @@ const AdminDashboardScreen = () => {
                 </div>
             </div>
 
-            {/* Actividad Reciente */}
             <div className="admin-recent-activity">
                 <h3 className="panel-card-title">🔔 Últimos Empleados Registrados</h3>
                 <div className="recent-list">
