@@ -45,6 +45,7 @@
 
 .admin-table {
   width: 100%;
+  min-width: 750px;
   border-collapse: collapse;
   table-layout: fixed;
 }
@@ -152,7 +153,13 @@
 @media (max-width: 768px) {
   .admin-panel-header {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch !important;
+  }
+  
+  .admin-panel-header > div {
+    width: 100%;
+    padding: 0 !important;
+    justify-content: flex-start !important;
   }
   
   .btn-primary {
