@@ -1,0 +1,87 @@
+.splash-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: transparent;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+}
+
+.splash-leave {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.logo-container {
+    width: 350px;
+    height: 100px;
+    transform: translateX(110px); /* Centers the 'S' initially */
+    animation: centerLogo 1.2s cubic-bezier(0.4, 0, 0.2, 1) 1.8s forwards;
+}
+
+@keyframes centerLogo {
+    0% {
+        transform: translateX(110px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.logo-svg {
+    width: 100%;
+    height: 100%;
+}
+
+.logo-full-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 64px;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+}
+
+.logo-s-text {
+    fill: transparent;
+    stroke: var(--accent-color);
+    stroke-width: 2.5px;
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400;
+    animation: 
+        drawS 2.5s cubic-bezier(0.4, 0, 0.2, 1) forwards,
+        fillS 0.5s ease-in 1.8s forwards;
+}
+
+@keyframes drawS {
+    0% {
+        stroke-dashoffset: 400;
+    }
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes fillS {
+    100% {
+        fill: var(--accent-color);
+    }
+}
+
+.logo-letter {
+    opacity: 0;
+    fill: var(--text-primary);
+    animation: showLetter 0.5s ease-in-out forwards;
+}
+
+@keyframes showLetter {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}

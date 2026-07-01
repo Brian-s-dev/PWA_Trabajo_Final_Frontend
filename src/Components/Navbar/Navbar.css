@@ -27,14 +27,11 @@
 
 .navbar-brand:hover .navbar-logo-icon {
   transform: scale(1.05);
-  background-color: var(--accent-hover);
+  color: var(--accent-hover);
 }
 
 .navbar-logo-icon {
-  padding: 8px;
-  background-color: var(--accent-color);
-  color: white;
-  border-radius: 12px;
+  color: var(--accent-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -311,7 +308,7 @@
 
 
 
-/* Avatar Classes */
+/* Clases paar los avatares. */
 .navbar-avatar-image {
   width: 32px;
   height: 32px;
@@ -325,7 +322,7 @@
   height: 40px;
 }
 
-/* Progress Widget Classes */
+/* barra de progreso */
 .widget-progress-header {
   display: flex;
   justify-content: space-between;
@@ -348,7 +345,6 @@
   margin-left: 6px;
 }
 
-/* User Info Clickable */
 .navbar-user-info.clickable {
   cursor: pointer;
 }

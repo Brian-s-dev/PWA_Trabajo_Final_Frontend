@@ -13,7 +13,7 @@ const useRequest = () => {
             return response;
 
         } catch (err) {
-            const errorMessage = err.response?.data?.message || 'Ocurrió un error inesperado';
+            const errorMessage = err.response?.data?.message || err.message || 'Ocurrió un error inesperado';
             setError(errorMessage);
             throw err;
 

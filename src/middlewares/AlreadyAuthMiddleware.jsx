@@ -1,6 +1,7 @@
 import React from 'react';
 import { Navigate, Outlet } from 'react-router';
 import { useAuth } from '../context/AuthContext';
+import PlexusBackground from '../Components/PlexusBackground/PlexusBackground';
 
 const AlreadyAuthMiddleware = () => {
     const { user } = useAuth();
@@ -10,7 +11,12 @@ const AlreadyAuthMiddleware = () => {
         }
         return <Navigate to="/dashboard" replace />;
     }
-    return <Outlet />;
+    return (
+        <>
+            <PlexusBackground />
+            <Outlet />
+        </>
+    );
 };
 
 export default AlreadyAuthMiddleware;

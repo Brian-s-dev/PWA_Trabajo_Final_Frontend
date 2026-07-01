@@ -6,9 +6,15 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
+    const logout = () => {
+        sessionStorage.removeItem('access_token');
+        sessionStorage.removeItem('user');
+        setUser(null);
+    };
+
     useEffect(() => {
-        const storedToken = localStorage.getItem('access_token');
-        const storedUser = localStorage.getItem('user');
+        const storedToken = sessionStorage.getItem('access_token');
+        const storedUser = sessionStorage.getItem('user');
 
         if (storedToken && storedUser) {
             setUser(JSON.parse(storedUser));
@@ -17,22 +23,42 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     const login = (userData, userToken) => {
-        localStorage.setItem('access_token', userToken);
-        localStorage.setItem('user', JSON.stringify(userData));
+        sessionStorage.setItem('access_token', userToken);
+        sessionStorage.setItem('user', JSON.stringify(userData));
         setUser(userData);
-    };
-
-    const logout = () => {
-        localStorage.removeItem('access_token');
-        localStorage.removeItem('user');
-        setUser(null);
     };
 
     const updateUser = (updatedData) => {
         const newData = { ...user, ...updatedData };
-        localStorage.setItem('user', JSON.stringify(newData));
+        sessionStorage.setItem('user', JSON.stringify(newData));
         setUser(newData);
     };
+
+    // configuracion para el timeout del usuario
+    useEffect(() => {
+        let timeoutId;
+
+        const resetTimer = () => {
+            clearTimeout(timeoutId);
+            if (user) {
+                timeoutId = setTimeout(() => {
+                    logout();
+                }, 300000);
+            }
+        };
+
+        const events = ['mousemove', 'keydown', 'scroll', 'click'];
+
+        if (user) {
+            resetTimer();
+            events.forEach(event => window.addEventListener(event, resetTimer));
+        }
+
+        return () => {
+            clearTimeout(timeoutId);
+            events.forEach(event => window.removeEventListener(event, resetTimer));
+        };
+    }, [user]);
 
     if (loading) return null;
 
